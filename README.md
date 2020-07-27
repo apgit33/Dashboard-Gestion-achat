@@ -1,10 +1,13 @@
 # Dashboard-Gestion-achat
 
-Projet de dashboard réalisé en équipe :
+Projet de dashboard, gestion d'achat de matériel
+
+Ce dashboard devra être **sécurisé par un système de login**.
+
+## Équipe
     - Front : Adrien Paturot (apgit33)
     - Back  : Arnaud (Arnaud1709) et Jessica (JessicaDaSilvaC)
 
-Ce dashboard devra être **sécurisé par un système de login**.
 
 ## Fonctionnalités
 
@@ -34,7 +37,7 @@ Ce dashboard devra être **sécurisé par un système de login**.
 ### Bonus
 
     - Tâche cron qui envoie un email lorsque le produit arrive à terme de sa garantie
-    - Une page ou l'on peut voir un graphique comparant les sommes dépensées par catégorie entre deux dates.
+    - Une page où l'on peut voir un graphique comparant les sommes dépensées par catégorie entre deux dates.
 
 
 **Les formulaires seront validés par JS**
