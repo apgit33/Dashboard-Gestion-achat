@@ -20,12 +20,12 @@ Ce dashboard devra être **sécurisé par un système de login**.
 ### Informations disponibles pour un produit
 
 + Lieux d'achat (En vente directe ou e-commerce)
-    Si vente directe - Possibilité de saisir l'adresse
-    Si e-commerce - Possibilté de saisir l'url du e-commerce
+    + Si vente directe - Possibilité de saisir l'adresse
+    + Si e-commerce - Possibilté de saisir l'url du e-commerce
 + Nom du produit
 + Référence du produit
 + Catégorie (Electroménager, TV-HIFI, Bricolage, Voiture....)
-    Le produit n'appartiendra qu'à une seule catégorie
+    + Le produit n'appartiendra qu'à une seule catégorie
 + Date d'achat
 + Date de fin de garantie
 + Prix
@@ -44,4 +44,11 @@ Ce dashboard devra être **sécurisé par un système de login**.
 
 ## Technos
 
-PHP, TWIG, SASS, GIT, JS, HTML, CSS, FRAMEWORK CSS (optionnel)
++ PHP
++ TWIG
++ SASS
++ GIT
++ JS
++ HTML
++ CSS
++ FRAMEWORK CSS (optionnel)
