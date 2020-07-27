@@ -18,7 +18,7 @@
     $font-text :  'nunito-regular';
     $font-title : 'nunito-bold';
   
-    $color-primary :  rgba(52, 58, 64, 0.769);
+    $color-primary :  rgb(52, 58, 64);
     $color-secondary :#F3F3F3;
     $color-white :    white;
     
@@ -33,15 +33,19 @@
     .wrap {flex-wrap: wrap;}
     .grow {flex-grow: 0;}
     .ai {align-items: center;}
+    html {overflow-y: hidden;}
     body {
         font-family: $font-text;
         background-color: $color-secondary; 
     }
-    .container {height: 100vh;}
+    .h-100s {
+        
+    }
     h2 {
         font-family: $font-title;
     }
-    
+    .m-0 {margin: 0;}
+    .p-0{padding: 0;}
     // -----------------
     // Formulaire de connexion
     // -----------------
@@ -71,4 +75,44 @@
                 }
             }
         }
+    }
+// .container {
+//     padding-left: 12px !important;
+//     padding-right: 0 !important;
+// }
+#side_bar {
+    background-color: $color-primary;
+    height: 100vh;
+    // padding-right: 0;
+    #menu_v,.menu-label, li>a {
+        // margin-top: 12px;
+    color: $color-secondary;
+
+    }
+    li>a:hover {
+        color: $color-primary;
+    }
+}
+    .logo {
+        height: 57px;
+        img {
+            max-height: 28px;
+        }
+    }
+    .navbar, .logo {
+        border-bottom: 1px solid #4b545c;
+    }
+    .content {
+        height: calc(100vh - 96px);
+        // position: relative;
+        background-color: rgb(243, 243, 243);
+    }
+    .footerp {
+        height: 40px;
+        bottom: -30px;
+        left: 0;
+        // position: fixed;
+        right: 0;
+        background-color: rgb(255, 255, 255);
+
     }
