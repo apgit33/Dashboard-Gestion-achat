@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'nunito-bold';
+    src: url('fonts/nunito/Nunito-Bold.eot');
+    src: local('☺'), url('fonts/nunito/Nunito-Bold.woff') format('woff'), url('fonts/nunito/Nunito-Bold.ttf') format('truetype'), url('fonts/nunito/Nunito-Bold.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+      font-family: 'nunito-regular';
+      src: url('fonts/nunito/Nunito-Regular.eot');
+      src: local('☺'), url('fonts/nunito/Nunito-Regular.woff') format('woff'), url('fonts/nunito/Nunito-Regular.ttf') format('truetype'), url('fonts/nunito/Nunito-Regular.svg') format('svg');
+      font-weight: normal;
+      font-style: normal;
+  }
+    
+    $font-text :  'nunito-regular';
+    $font-title : 'nunito-bold';
+  
+    $color-primary :  #00474d;
+    $color-secondary :rgb(132, 145, 19);
+    $color-white :    white;
+    
+    .d-flex {display: flex;}
+    .fd-column {flex-direction: column;}
+    .jc-around {justify-content: space-around;}
+    .jc-center {justify-content: center;}
+    .jc-end {justify-content: flex-end;}
+    .wrap {flex-wrap: wrap;}
+    .grow {flex-grow: 0;}
+    .ai {align-items: center;}
