@@ -1,25 +1,30 @@
 @font-face {
     font-family: 'nunito-bold';
-    src: url('fonts/nunito/Nunito-Bold.eot');
-    src: local('☺'), url('fonts/nunito/Nunito-Bold.woff') format('woff'), url('fonts/nunito/Nunito-Bold.ttf') format('truetype'), url('fonts/nunito/Nunito-Bold.svg') format('svg');
+    src: url('../fonts//nunito/Nunito-Bold.eot');
+    src: local('☺'), url('../fonts//nunito/Nunito-Bold.woff') format('woff'), url('../fonts//nunito/Nunito-Bold.ttf') format('truetype'), url('../fonts//nunito/Nunito-Bold.svg') format('svg');
     font-weight: normal;
     font-style: normal;
-  }
-  @font-face {
-      font-family: 'nunito-regular';
-      src: url('fonts/nunito/Nunito-Regular.eot');
-      src: local('☺'), url('fonts/nunito/Nunito-Regular.woff') format('woff'), url('fonts/nunito/Nunito-Regular.ttf') format('truetype'), url('fonts/nunito/Nunito-Regular.svg') format('svg');
-      font-weight: normal;
-      font-style: normal;
-  }
-    
+    }
+@font-face {
+    font-family: 'nunito-regular';
+    src: url('../fonts//nunito/Nunito-Regular.eot');
+    src: local('☺'), url('../fonts//nunito/Nunito-Regular.woff') format('woff'), url('../fonts//nunito/Nunito-Regular.ttf') format('truetype'), url('../fonts//nunito/Nunito-Regular.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+    // -----------------
+    // Variables globales
+    // -----------------
     $font-text :  'nunito-regular';
     $font-title : 'nunito-bold';
   
-    $color-primary :  #00474d;
-    $color-secondary :rgb(132, 145, 19);
+    $color-primary :  rgba(52, 58, 64, 0.769);
+    $color-secondary :#F3F3F3;
     $color-white :    white;
     
+    // -----------------
+    // Classes générales
+    // -----------------
     .d-flex {display: flex;}
     .fd-column {flex-direction: column;}
     .jc-around {justify-content: space-around;}
@@ -28,3 +33,42 @@
     .wrap {flex-wrap: wrap;}
     .grow {flex-grow: 0;}
     .ai {align-items: center;}
+    body {
+        font-family: $font-text;
+        background-color: $color-secondary; 
+    }
+    .container {height: 100vh;}
+    h2 {
+        font-family: $font-title;
+    }
+    
+    // -----------------
+    // Formulaire de connexion
+    // -----------------
+    #c_parent_login {
+        height: 100vh;
+        .c_login {
+            // position: relative;
+            box-shadow: 0 0 1.25rem 0 rgba(0, 0, 0, 0.2), 0 0.3125rem 0.3125rem 0 rgba(0, 0, 0, 0.24);
+
+            //bouton visiteur
+            // .visiteur {
+            //     position: absolute;
+            //     top: 22px;
+            //     right: 14px;
+            // }
+            #f_login {
+                input {
+                    font-family: $font-text; 
+                    &[name=login] {
+                        background-color: $color-primary;
+                        color: $color-secondary;
+                    }
+                    &:focus {
+                        border-color: $color-primary;
+                        box-shadow: none;
+                    }
+                }
+            }
+        }
+    }
