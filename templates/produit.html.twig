@@ -9,6 +9,7 @@
                     <div class="columns is-centered m-0 content">
                         <!-- Content -->
                         <div class="column ">
+                            <h2 class="title has-text-centered">Liste des produits disponible</h2>
                             <table class="table is-hoverable">
                                 <thead>
                                     <tr>
@@ -32,8 +33,8 @@
                                             <td> {{ produit.name }}</td>
                                             <td> {{ produit.reference }}</td>
                                             <td> {{ produit.categorie }}</td>
-                                            <td> {{ produit.date }}</td>
-                                            <td> {{ produit.guarantee }}</td>
+                                            <td> {{ produit.date|date('d-m-Y') }}</td>
+                                            <td> {{ produit.guarantee|date('d-m-Y') }}</td>
                                             <td> {{ produit.price }}</td>
                                             <td> {{ produit.maintenance }}</td>
                                             <td> {{ produit.picture }}</td>
