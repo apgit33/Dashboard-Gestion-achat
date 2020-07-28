@@ -42,8 +42,9 @@
                                             <td>
                                                 <div class="field is-grouped">
                                                     <div class="control">
-                                                        <form action="edit.php" method="post">
-                                                            <button type ="submit" class="button is-success" name="edit" value={{ produit.id }}>Editer</button>
+                                                        <form action="edit.php" method="GET">
+                                                            <input type="hidden" name="id" value={{ produit.id }}>
+                                                            <button type ="submit" class="button is-success" name="edit" value="1">Editer</button>
                                                         </form>
                                                     </div>
                                                    
