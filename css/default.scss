@@ -39,12 +39,12 @@
         background-color: $color-secondary;
     }
     .h-100s {
-        
+        min-height: 100vh;
     }
     h2 {
         font-family: $font-title;
     }
-    .m-0{margin: 0;}
+    .m-0{margin: 0!important;}
     .p-0{padding: 0;}
     // -----------------
     // Formulaire de connexion
@@ -55,12 +55,6 @@
             // position: relative;
             box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 
-            //bouton visiteur
-            // .visiteur {
-            //     position: absolute;
-            //     top: 22px;
-            //     right: 14px;
-            // }
             #f_login {
                 input {
                     font-family: $font-text; 
@@ -82,12 +76,12 @@
 // }
 #side_bar {
     background-color: $color-primary;
+    padding-top: 30px;
     // height: 100vh;
     // padding-right: 0;
-    #menu_v,.menu-label, li>a {
+    .menu,.menu-label, li>a {
         // margin-top: 12px;
-    color: $color-secondary;
-
+        color: $color-secondary;
     }
     li>a:hover {
         color: $color-primary;
@@ -103,15 +97,15 @@
         border-bottom: 1px solid #4b545c;
     }
     .content {
-        height: calc(100vh - 93px);
+        min-height: calc(100vh - 81px);
         // position: relative;
-        background-color: rgb(243, 243, 243);
+        // background-color: rgb(243, 243, 243);
     }
     .footerp {
-        height: 100px !important;
+        // height: 100px !important;
         // bottom: -30px;
         left: 50%;
-        position: fixed;
+        // position: fixed;
         // right: 0;
         background-color: rgb(255, 255, 255);
 
@@ -151,3 +145,31 @@
     .fa-trash-alt::before,.fa-edit::before {
         color: $color-primary;
     }
+
+    .navbar-burger {
+        margin-left: 0;
+    }
+
+
+// @media screen and (max-width:1023.98889px) {
+//     #side_bar {
+//         display: none;
+//     }
+// }
+@media screen and (max-width:1216.8896px) { 
+    .navbar-burger {
+        display: block;
+    }
+
+    #side_bar {
+        position: absolute;
+        z-index: 25;
+        width: 100%; 
+        transition: top .400s linear;
+        top: -40%;
+    }
+    #side_bar.animated {
+        transition: top .400s linear;
+        top: 7%;
+    }
+ }

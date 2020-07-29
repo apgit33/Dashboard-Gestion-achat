@@ -2,161 +2,161 @@
 <html lang="en">
     {% include "header.html" %}
     <body>
+        {% include "nav_bar.html" %}
             <div class="columns is-centered m-0">
                 {% include "side_bar.html" %}
                 <div class="column p-0">
-                    {% include "nav_bar.html" %}
-                    <!-- Content -->
-                        <div class="columns is-centered m-0 content">
-                            <div class="column">
-                                <h2 class="title has-text-centered mb-0">{{ titre }}</h2>
-                                <form action="" id="form_product" method="POST">
-                                <div class="columns is-centered m-0">
-                                    <div class="column">
-                                        <div class="field">
-                                            <label for="name" class="label">Nom :</label>
-                                            <div class="control">
-                                                <input required class="input is-medium" type="text" name="name" id="name" value={{ produit.name }}>
+                    <div class="columns is-centered m-0 content">
+                        <!-- Content -->
+                        <div class="column ">
+                                    <h2 class="title has-text-centered">{{ titre }}</h2>
+                                    <form action="" id="form_product" method="POST">
+                                    <div class="columns is-centered m-0">
+                                        <div class="column">
+                                            <div class="field">
+                                                <label for="name" class="label">Nom :</label>
+                                                <div class="control">
+                                                    <input required class="input is-medium" type="text" name="name" id="name" value={{ produit.name }}>
+                                                </div>
+                                                <div id="check_name" class="verif"></div>
                                             </div>
-                                            <div id="check_name" class="verif"></div>
-                                        </div>
-                                        <div class="field">
-                                            <label for="reference" class="label">Référence :</label>
-                                            <div class="control">
-                                                <input class="input is-medium" type="text" name="reference" id="reference" value={{ produit.reference }}>
+                                            <div class="field">
+                                                <label for="reference" class="label">Référence :</label>
+                                                <div class="control">
+                                                    <input class="input is-medium" type="text" name="reference" id="reference" value={{ produit.reference }}>
+                                                </div>
+                                                <div id="check_reference" class="verif"></div>
                                             </div>
-                                            <div id="check_reference" class="verif"></div>
-                                        </div>
-                                        <div class="field">
-                                            <label for="localisation" class="label">Localisation :</label>
-                                            <div class="control">
-                                                <label class="radio">
-                                                    <input type="radio" name="localisation" value="vente directe">
-                                                    vente directe
-                                                </label>
-                                                <label class="radio">
-                                                    <input type="radio" name="localisation" value="e-commerce">
-                                                    e-commerce
-                                                </label>
+                                            <div class="field">
+                                                <label for="localisation" class="label">Localisation :</label>
+                                                <div class="control">
+                                                    <label class="radio">
+                                                        <input type="radio" name="localisation" value="vente directe">
+                                                        vente directe
+                                                    </label>
+                                                    <label class="radio">
+                                                        <input type="radio" name="localisation" value="e-commerce">
+                                                        e-commerce
+                                                    </label>
+                                                </div>
+                                                <div id="check_localisation" class="verif"></div>
                                             </div>
-                                            <div id="check_localisation" class="verif"></div>
-                                        </div>
-                                        <div class="field">
-                                            <label for="adresse" class="label">Adresse :</label>
-                                            <div class="control">
-                                                <input class="input is-medium" type="text" name="adresse" id="adresse" value={{ produit.adresse }}>
+                                            <div class="field">
+                                                <label for="adresse" class="label">Adresse :</label>
+                                                <div class="control">
+                                                    <input class="input is-medium" type="text" name="adresse" id="adresse" value={{ produit.adresse }}>
+                                                </div>
+                                                <div id="check_adresse" class="verif"></div>
                                             </div>
-                                            <div id="check_adresse" class="verif"></div>
-                                        </div>
 
-                                        <div class="field">
-                                            <label for="categorie" class="label">Catégorie :</label>
-                                            <div class="control">
-                                                <div class="select">
-                                                    <select>
-                                                        {% for categorie in categories %}
-                                                            <option value={{ categorie.name }}
-                                                                {% if categorie.name is same as(produit.categorie) %}
-                                                                    selected
-                                                                {% endif %}
-                                                            >{{ categorie.name }}</option>
-                                                        {% endfor %} #}
-                                                    </select>
+                                            <div class="field">
+                                                <label for="categorie" class="label">Catégorie :</label>
+                                                <div class="control">
+                                                    <div class="select">
+                                                        <select>
+                                                            {% for categorie in categories %}
+                                                                <option value={{ categorie.name }}
+                                                                    {% if categorie.name is same as(produit.categorie) %}
+                                                                        selected
+                                                                    {% endif %}
+                                                                >{{ categorie.name }}</option>
+                                                            {% endfor %} #}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div id="check_categorie" class="verif"></div>
+                                            </div>
+                                            <div class="field">
+                                                <label for="date_achat" class="label">Date d'achat :</label>
+                                                <div class="control">
+                                                    <input required class="input is-medium" type="date" name="date_achat" id="date_achat" value={{ produit.date }}>
+                                                </div>
+                                                <div id="check_date_achat" class="verif"></div>
+                                            </div>
+                                            <div class="field">
+                                                <label for="date_guarantee" class="label">Date de garantie :</label>
+                                                <div class="control">
+                                                    <input required class="input is-medium" type="date" name="date_guarantee" id="date_guarantee" value={{ produit.guarantee }}>
+                                                </div>
+                                                <div id="check_date_garantie" class="verif"></div>
+                                            </div>
+                                        </div>
+                                        <div class="column"> 
+                                            
+                                            <div class="field">
+                                                <label for="price" class="label">Prix :</label>
+                                                <div class="control">
+                                                    <input required class="input is-medium" type="text" name="price" id="price" value={{ produit.price }}>
+                                                </div>
+                                                <div id="check_price" class="verif"></div>
+                                            </div>
+                                            <div class="field">
+                                                <label for="maintenance" class="label">Maintenance :</label>
+                                                <div class="control">
+                                                    <textarea class="textarea is-medium" name="maintenance" placeholder="Conseil de maintenance">{{ produit.maintenance }}</textarea>
+                                                </div>
+                                                <div id="check_maintenance" class="verif"></div>
+                                            </div>
+                                            <div class="field">
+                                                <label for="ticket_file" class="label">Ticket d'achat :</label>
+                                                <div id="ticket_file" class="file has-name is-medium">
+                                                    <label class="file-label">
+                                                        <input type="file" class="file-input" name="ticket_file">
+                                                        <div class="file-cta">
+                                                            <div class="file-icon">
+                                                                <span class="fas fa-upload"></span>
+                                                            </div>
+                                                            <div class="file-label">
+                                                                Choisir un fichier...
+                                                            </div>
+                                                        </div>
+                                                        <div class="file-name">
+                                                            Aucun fichier selectionné
+                                                        </div>
+                                                    </label>
+                                                </div><p><strong>Note : </strong>Formats autorisés : jpg, jpeg, png. Taille maximale : 5 Mo.</p>
+                                                <div id="check_ticket" class="verif"></div>
+                                            </div>
+                                            <div class="field">
+                                                <label for="manual_file" class="label">Manuel :</label>
+                                                <div id="manual_file" class="file has-name is-medium">
+                                                    <label class="file-label">
+                                                        <input type="file" class="file-input" name="manual_file">
+                                                        <div class="file-cta">
+                                                            <div class="file-icon">
+                                                                <span class="fas fa-upload"></span>
+                                                            </div>
+                                                            <div class="file-label">
+                                                                Choisir un fichier...
+                                                            </div>
+                                                        </div>
+                                                        <div class="file-name">
+                                                            Aucun fichier selectionné
+                                                        </div>
+                                                    </label>
+                                                </div><p><strong>Note : </strong>Format autorisé : pdf.</p>
+                                                <div id="check_manual" class="verif"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="columns">
+                                        <div class="column">
+                                            <div class="field">
+                                                <input type ="hidden" name="id" value = {{ produit.id }}>
+                                                <div class="control">
+                                                    <button type ="submit" class="button is-success" name="edit">Confirm</button>
                                                 </div>
                                             </div>
-                                            <div id="check_categorie" class="verif"></div>
-                                        </div>
-                                        <div class="field">
-                                            <label for="date_achat" class="label">Date d'achat :</label>
-                                            <div class="control">
-                                                <input required class="input is-medium" type="date" name="date_achat" id="date_achat" value={{ produit.date }}>
-                                            </div>
-                                            <div id="check_date_achat" class="verif"></div>
-                                        </div>
-                                        <div class="field">
-                                            <label for="date_guarantee" class="label">Date de garantie :</label>
-                                            <div class="control">
-                                                <input required class="input is-medium" type="date" name="date_guarantee" id="date_guarantee" value={{ produit.guarantee }}>
-                                            </div>
-                                            <div id="check_date_garantie" class="verif"></div>
                                         </div>
                                     </div>
-                                    <div class="column"> 
-                                        
-                                        <div class="field">
-                                            <label for="price" class="label">Prix :</label>
-                                            <div class="control">
-                                                <input required class="input is-medium" type="text" name="price" id="price" value={{ produit.price }}>
-                                            </div>
-                                            <div id="check_price" class="verif"></div>
-                                        </div>
-                                        <div class="field">
-                                            <label for="maintenance" class="label">Maintenance :</label>
-                                            <div class="control">
-                                                <textarea class="textarea is-medium" name="maintenance" placeholder="Conseil de maintenance">{{ produit.maintenance }}</textarea>
-                                            </div>
-                                            <div id="check_maintenance" class="verif"></div>
-                                        </div>
-                                        <div class="field">
-                                            <label for="ticket_file" class="label">Ticket d'achat :</label>
-                                            <div id="ticket_file" class="file has-name is-medium">
-                                                <label class="file-label">
-                                                    <input type="file" class="file-input" name="ticket_file">
-                                                    <div class="file-cta">
-                                                        <div class="file-icon">
-                                                            <span class="fas fa-upload"></span>
-                                                        </div>
-                                                        <div class="file-label">
-                                                            Choisir un fichier...
-                                                        </div>
-                                                    </div>
-                                                    <div class="file-name">
-                                                        Aucun fichier selectionné
-                                                    </div>
-                                                </label>
-                                            </div><p><strong>Note : </strong>Formats autorisés : jpg, jpeg, png. Taille maximale : 5 Mo.</p>
-                                            <div id="check_ticket" class="verif"></div>
-                                        </div>
-                                        <div class="field">
-                                            <label for="manual_file" class="label">Manuel :</label>
-                                            <div id="manual_file" class="file has-name is-medium">
-                                                <label class="file-label">
-                                                    <input type="file" class="file-input" name="manual_file">
-                                                    <div class="file-cta">
-                                                        <div class="file-icon">
-                                                            <span class="fas fa-upload"></span>
-                                                        </div>
-                                                        <div class="file-label">
-                                                            Choisir un fichier...
-                                                        </div>
-                                                    </div>
-                                                    <div class="file-name">
-                                                        Aucun fichier selectionné
-                                                    </div>
-                                                </label>
-                                            </div><p><strong>Note : </strong>Formats autorisés : jpg, jpeg, png. Taille maximale : 5 Mo.</p>
-                                            <div id="check_manual" class="verif"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="columns">
-                                    <div class="column">
-                                        <div class="field">
-                                            <input type ="hidden" name="id" value = {{ produit.id }}>
-                                            <div class="control">
-                                                <button type ="submit" class="button is-success" name="edit">Confirm</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            </div>
+                                </form>
                         </div>
-                        {% include "footer.html" %}
                     </div>
                 </div>
-
+            </div>
+            {% include "footer.html" %}
         <script src="https://kit.fontawesome.com/6c7241f45d.js" crossorigin="anonymous"></script>
         <script src="js/edit_ajout.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>

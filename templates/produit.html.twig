@@ -2,88 +2,89 @@
 <html lang="en">
     {% include "header.html" %}
     <body>
+        {% include "nav_bar.html" %}
             <div class="columns is-centered m-0">
                 {% include "side_bar.html" %}
-                <div class="column p-0">
-                    {% include "nav_bar.html" %}
-                    <div class="columns is-centered m-0 content">
-                        <!-- Content -->
-                        <div class="column ">
-                            <h2 class="title has-text-centered">Liste des produits disponible</h2>
-                            <table class="table is-hoverable">
-                                <thead>
+            <div class="column p-0">
+                <div class="columns is-centered m-0 content">
+                    <!-- Content -->
+                    <div class="column ">
+                        <h2 class="title has-text-centered">Liste des produits disponible</h2>
+                        <table class="table is-hoverable">
+                            <thead>
+                                <tr>
+                                    <th>Localisation</th>
+                                    <th>Nom</th>
+                                    <th>Référence</th>
+                                    <th>Catégorie</th>
+                                    <th>Achat</th>
+                                    <th>Garantie</th>
+                                    <th>Prix</th>
+                                    <th>Entretien</th>
+                                    <th>Ticket achat</th>
+                                    <th>Manuel</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for produit in liste_produits %}
                                     <tr>
-                                        <th>Localisation</th>
-                                        <th>Nom</th>
-                                        <th>Référence</th>
-                                        <th>Catégorie</th>
-                                        <th>Achat</th>
-                                        <th>Garantie</th>
-                                        <th>Prix</th>
-                                        <th>Entretien</th>
-                                        <th>Ticket achat</th>
-                                        <th>Manuel</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for produit in liste_produits %}
-                                        <tr>
-                                            <td> {{ produit.localisation }}</td>
-                                            <td> {{ produit.name }}</td>
-                                            <td> {{ produit.reference }}</td>
-                                            <td> {{ produit.categorie }}</td>
-                                            <td> {{ produit.date|date('d-m-Y') }}</td>
-                                            <td> {{ produit.guarantee|date('d-m-Y') }}</td>
-                                            <td> {{ produit.price }}</td>
-                                            <td> {{ produit.maintenance }}</td>
-                                            <td> {{ produit.picture }}</td>
-                                            <td> {{ produit.manual }}</td>
-                                            <td>
-                                                <div class="field is-grouped">
-                                                    <div class="control">
-                                                        <form action="edit.php" method="GET">
-                                                            <input type="hidden" name="id" value={{ produit.id }}>
-                                                            <button type ="submit" class="button is-success far fa-edit" name="edit" value="1"></button>
-                                                        </form>
-                                                    </div>
-                                                   
-                                                    <div class="control">
-                                                        <button class="button btn_delete is-danger far fa-trash-alt" name="delete"></button>
-                                                        {# Création de la modal de suppression #}
-                                                        <div class="modal">
-                                                            <form class="modal-content" action="" method="post">
-                                                                <div class="container-modal">
-                                                                    <p class="title is-3">Supprimer le produit : {{ produit.name }}</p>
-                                                                    <div class="buttons is-centered">
-                                                                        <div class="control">
-                                                                            <button type="submit" class="button is-success">Cancel</button>
-                                                                        </div>
-                                                                        <div class="control">
-                                                                            <button type="submit" class="button is-danger" name="modal_delete" value={{ produit.id }}>Delete</button>
-                                                                        </div>
+                                        <td> {{ produit.localisation }}</td>
+                                        <td> {{ produit.name }}</td>
+                                        <td> {{ produit.reference }}</td>
+                                        <td> {{ produit.categorie }}</td>
+                                        <td> {{ produit.date|date('d-m-Y') }}</td>
+                                        <td> {{ produit.guarantee|date('d-m-Y') }}</td>
+                                        <td> {{ produit.price }}</td>
+                                        <td> {{ produit.maintenance }}</td>
+                                        <td> {{ produit.picture }}</td>
+                                        <td> {{ produit.manual }}</td>
+                                        <td>
+                                            <div class="field is-grouped">
+                                                <div class="control">
+                                                    <form action="edit.php" method="GET">
+                                                        <input type="hidden" name="id" value={{ produit.id }}>
+                                                        <button type ="submit" class="button is-success far fa-edit" name="edit" value="1"></button>
+                                                    </form>
+                                                </div>
+                                                
+                                                <div class="control">
+                                                    <button class="button btn_delete is-danger far fa-trash-alt" name="delete"></button>
+                                                    {# Création de la modal de suppression #}
+                                                    <div class="modal">
+                                                        <form class="modal-content" action="" method="post">
+                                                            <div class="container-modal">
+                                                                <p class="title is-3">Supprimer le produit : {{ produit.name }}</p>
+                                                                <div class="buttons is-centered">
+                                                                    <div class="control">
+                                                                        <button type="submit" class="button is-success">Cancel</button>
+                                                                    </div>
+                                                                    <div class="control">
+                                                                        <button type="submit" class="button is-danger" name="modal_delete" value={{ produit.id }}>Delete</button>
                                                                     </div>
                                                                 </div>
-                                                            </form>
-                                                            <button class='modal-close is-large' aria-label='close'></button>
-                                                        </div> 
-                                                    </div>
+                                                            </div>
+                                                        </form>
+                                                        <button class='modal-close is-large' aria-label='close'></button>
+                                                    </div> 
                                                 </div>
-                                            </td>
-                                        </tr>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                                    {% else %}
-                                        <p class="">Il n'existe aucun produits</p>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
+                                {% else %}
+                                    <p class="">Il n'existe aucun produits</p>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
-                    {% include "footer.html" %}
                 </div>
             </div>
+        </div>
+        {% include "footer.html" %}
 
         <script src="https://kit.fontawesome.com/6c7241f45d.js" crossorigin="anonymous"></script>
         <script src="js/delete.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>
