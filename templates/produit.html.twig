@@ -13,14 +13,15 @@
                         <table class="table is-hoverable">
                             <thead>
                                 <tr>
-                                    <th>Localisation</th>
                                     <th>Nom</th>
                                     <th>Référence</th>
+                                    <th>Localisation</th>
+                                    <th>Adresse</th>
                                     <th>Catégorie</th>
                                     <th>Achat</th>
                                     <th>Garantie</th>
                                     <th>Prix</th>
-                                    <th>Entretien</th>
+                                    <th>Maintenance</th>
                                     <th>Ticket achat</th>
                                     <th>Manuel</th>
                                     <th>Action</th>
@@ -29,17 +30,18 @@
                             <tbody>
                                 {% for produit in liste_produits %}
                                     <tr>
-                                        <td> {{ produit.localisation }}</td>
-                                        <td> {{ produit.name }}</td>
-                                        <td> {{ produit.reference }}</td>
-                                        <td> {{ produit.categorie }}</td>
-                                        <td> {{ produit.date|date('d-m-Y') }}</td>
-                                        <td> {{ produit.guarantee|date('d-m-Y') }}</td>
-                                        <td> {{ produit.price }}</td>
-                                        <td> {{ produit.maintenance }}</td>
-                                        <td> {{ produit.picture }}</td>
-                                        <td> {{ produit.manual }}</td>
-                                        <td>
+                                        <td class="is-vcentered"> {{ produit.name }}</td>
+                                        <td class="is-vcentered"> {{ produit.reference }}</td>
+                                        <td class="is-vcentered"> {{ produit.localisation }}</td>
+                                        <td class="is-vcentered"> {{ produit.adresse }}</td>
+                                        <td class="is-vcentered"> {{ produit.categorie }}</td>
+                                        <td class="is-vcentered"> {{ produit.date|date('d-m-Y') }}</td>
+                                        <td class="is-vcentered"> {{ produit.guarantee|date('d-m-Y') }}</td>
+                                        <td class="is-vcentered"> {{ produit.price }}</td>
+                                        <td class="is-vcentered"> {{ produit.maintenance }}</td>
+                                        <td class="is-vcentered"> <a href={{ "medias/ticket_achat/" ~ produit.picture }} target="_blank"><img src={{ "medias/ticket_achat/" ~ produit.picture }} alt="" width="50" height="50"></a></td>
+                                        <td class="is-vcentered"><a href={{ "medias/manuels/" ~ produit.manual ~ ".pdf" }}>{{ produit.manual }}</a></td>
+                                        <td class="is-vcentered">
                                             <div class="field is-grouped">
                                                 <div class="control">
                                                     <form action="edit.php" method="GET">
