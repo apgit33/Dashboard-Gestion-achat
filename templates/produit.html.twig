@@ -44,16 +44,34 @@
                                                     <div class="control">
                                                         <form action="edit.php" method="GET">
                                                             <input type="hidden" name="id" value={{ produit.id }}>
-                                                            <button type ="submit" class="button is-success" name="edit" value="1">Editer</button>
+                                                            <button type ="submit" class="button is-success far fa-edit" name="edit" value="1"></button>
                                                         </form>
                                                     </div>
                                                    
                                                     <div class="control">
-                                                        <button class="button is-danger" name="delete" value={{ produit.id }}>Supprimer</button>
+                                                        <button class="button btn_delete is-danger far fa-trash-alt" name="delete"></button>
+                                                        {# Création de la modal de suppression #}
+                                                        <div class="modal">
+                                                            <form class="modal-content" action="" method="post">
+                                                                <div class="container-modal">
+                                                                    <p class="title is-3">Supprimer le produit : {{ produit.name }}</p>
+                                                                    <div class="buttons is-centered">
+                                                                        <div class="control">
+                                                                            <button type="submit" class="button is-success">Cancel</button>
+                                                                        </div>
+                                                                        <div class="control">
+                                                                            <button type="submit" class="button is-danger" name="modal_delete" value={{ produit.id }}>Delete</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            <button class='modal-close is-large' aria-label='close'></button>
+                                                        </div> 
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
+
                                     {% else %}
                                         <p class="">Il n'existe aucun produits</p>
                                     {% endfor %}
@@ -65,7 +83,7 @@
                 </div>
             </div>
 
-        {# <script src="https://kit.fontawesome.com/6c7241f45d.js" crossorigin="anonymous"></script> #}
-        <script src="js/main.js"></script>
+        <script src="https://kit.fontawesome.com/6c7241f45d.js" crossorigin="anonymous"></script>
+        <script src="js/delete.js"></script>
     </body>
 </html>
