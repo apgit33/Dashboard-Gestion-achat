@@ -31,11 +31,20 @@
                                                 <label for="localisation" class="label">Localisation :</label>
                                                 <div class="control">
                                                     <label class="radio">
-                                                        <input type="radio" name="localisation" value="vente directe">
+                                                        
+                                                        <input type="radio" name="localisation" value="vente directe" 
+                                                            {% if "vente directe" is same as(produit.localisation) %}
+                                                                checked
+                                                            {% endif %}
+                                                        >
                                                         vente directe
                                                     </label>
                                                     <label class="radio">
-                                                        <input type="radio" name="localisation" value="e-commerce">
+                                                        <input type="radio" name="localisation" value="e-commerce" 
+                                                            {% if "e-commerce" is same as(produit.localisation) %}
+                                                                checked
+                                                            {% endif %}
+                                                        >
                                                         e-commerce
                                                     </label>
                                                 </div>
