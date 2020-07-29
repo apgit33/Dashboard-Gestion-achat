@@ -1,14 +1,16 @@
+//on récupère les burgers (normalement un seul)
+const burgers = document.getElementsByClassName('navbar-burger');
 
-    const burgers = document.getElementsByClassName('navbar-burger');
-    for (let burger of burgers) {
-        burger.addEventListener('click', function(){
-            // Get the target from the "data-target" attribute
-            const target = this.dataset.target;
-            const $target = document.getElementById(target);
+//Pour chaque burger on ajoute un déclencheur d'évènement au click, qui toggle la classe is-active à celui-ci(this) et toggle la classe animated au menu($target)
+for (let burger of burgers) {
+    burger.addEventListener('click', function(){
+        
+        //on récupère l'id cible de l'attribut "data-target" du burger
+        const target = this.dataset.target;
+        //on récupère l'élement du target
+        const $target = document.getElementById(target);
 
-            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-            this.classList.toggle('is-active');
-            // $target.classList.toggle('is-hidden-mobile');
-            $target.classList.toggle('animated');
-        })
-    }
+        this.classList.toggle('is-active');
+        $target.classList.toggle('animated');
+    })
+}
