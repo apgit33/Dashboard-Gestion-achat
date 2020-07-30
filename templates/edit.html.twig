@@ -1,3 +1,6 @@
+{% if user is same as("") %}
+    <script>window.location.href = "index.php" </script>
+{% else %}
 <!DOCTYPE html>
 <html lang="en">
     {% include "header.html" %}
@@ -31,7 +34,6 @@
                                                 <label for="localisation" class="label">Localisation :</label>
                                                 <div class="control">
                                                     <label class="radio">
-                                                        
                                                         <input type="radio" name="localisation" value="vente directe" 
                                                             {% if "vente directe" is same as(produit.localisation) %}
                                                                 checked
@@ -76,12 +78,9 @@
                                                         </select>
                                                     </div>
                                                 </div>
-
-                                                <div id="check_categorie" class="verif"></div>
                                             </div>
-                                            <div id="new_cat" class="field">
- 
-                                            </div>
+                                            <div id="new_cat" class="field"></div>
+                                            <div id="check_categorie" class="verif"></div>
                                             <div class="field">
                                                 <label for="date_achat" class="label">Date d'achat :</label>
                                                 <div class="control">
@@ -114,7 +113,11 @@
                                                 <div id="check_maintenance" class="verif"></div>
                                             </div>
                                             <div class="field">
-                                                <label for="ticket_file" class="label">Ticket d'achat :</label>
+                                                <label for="ticket_file" class="label">Ticket d'achat :
+                                                    {% if produit.picture %}
+                                                        <a href={{ "medias/ticket_achat/" ~ produit.picture }} target="_blank"><img src={{ "medias/ticket_achat/" ~ produit.picture }} alt="" width="50" height="50"></a>
+                                                    {% endif %}
+                                                </label>
                                                 <div id="ticket_file" class="file has-name is-medium">
                                                     <label class="file-label">
                                                         <input type="file" class="file-input" name="ticket_file">
@@ -134,7 +137,11 @@
                                                 <div id="check_ticket" class="verif"></div>
                                             </div>
                                             <div class="field">
-                                                <label for="manual_file" class="label">Manuel :</label>
+                                                <label for="manual_file" class="label">Manuel :  
+                                                    {% if produit.manual %}
+                                                        <a href={{ "medias/manuels/" ~ produit.manual ~ ".pdf" }}>{{ produit.manual }}</a>
+                                                    {% endif %}
+                                                </label>
                                                 <div id="manual_file" class="file has-name is-medium">
                                                     <label class="file-label">
                                                         <input type="file" class="file-input" name="manual_file">
@@ -150,7 +157,7 @@
                                                             Aucun fichier selectionné
                                                         </div>
                                                     </label>
-                                                </div><p><strong>Note : </strong>Format autorisé : pdf.</p>
+                                                </div><p><strong>Note : </strong>Format autorisé : pdf. Taille maximale : 20 Mo.</p>
                                                 <div id="check_manual" class="verif"></div>
                                             </div>
                                         </div>
@@ -176,3 +183,4 @@
         <script src="js/main.js"></script>
     </body>
 </html>
+{% endif %}
