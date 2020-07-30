@@ -33,18 +33,18 @@
     .wrap {flex-wrap: wrap;}
     .grow {flex-grow: 0;}
     .ai {align-items: center;}
-    html {overflow-y: hidden;}
+    // html {overflow-y: hidden;}
     body {
         font-family: $font-text;
-        background-color: $color-secondary; 
+        background-color: $color-secondary;
     }
     .h-100s {
-        
+        min-height: 100vh;
     }
     h2 {
         font-family: $font-title;
     }
-    .m-0 {margin: 0;}
+    .m-0{margin: 0!important;}
     .p-0{padding: 0;}
     // -----------------
     // Formulaire de connexion
@@ -53,14 +53,8 @@
         height: 100vh;
         .c_login {
             // position: relative;
-            box-shadow: 0 0 1.25rem 0 rgba(0, 0, 0, 0.2), 0 0.3125rem 0.3125rem 0 rgba(0, 0, 0, 0.24);
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 
-            //bouton visiteur
-            // .visiteur {
-            //     position: absolute;
-            //     top: 22px;
-            //     right: 14px;
-            // }
             #f_login {
                 input {
                     font-family: $font-text; 
@@ -82,12 +76,12 @@
 // }
 #side_bar {
     background-color: $color-primary;
-    height: 100vh;
+    padding-top: 30px;
+    // height: 100vh;
     // padding-right: 0;
-    #menu_v,.menu-label, li>a {
+    .menu,.menu-label, li>a {
         // margin-top: 12px;
-    color: $color-secondary;
-
+        color: $color-secondary;
     }
     li>a:hover {
         color: $color-primary;
@@ -103,16 +97,79 @@
         border-bottom: 1px solid #4b545c;
     }
     .content {
-        height: calc(100vh - 96px);
+        min-height: calc(100vh - 81px);
         // position: relative;
-        background-color: rgb(243, 243, 243);
+        // background-color: rgb(243, 243, 243);
     }
     .footerp {
-        height: 40px;
-        bottom: -30px;
-        left: 0;
+        // height: 100px !important;
+        // bottom: -30px;
+        left: 50%;
         // position: fixed;
-        right: 0;
+        // right: 0;
         background-color: rgb(255, 255, 255);
 
     }
+
+    textarea {
+        height: 272px !important;
+    }
+    .verif {
+        color: red;
+    }
+
+
+// Modal suppression
+    .modal {
+        position: fixed; /* Stay in place */
+        z-index: 99; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        overflow: hidden; /* Enable scroll if needed */
+        background-color: $color-primary;
+        padding-top: 50px;
+        opacity: 97%;  
+        .modal-content {
+            background-color: $color-secondary;
+            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 25%; /* Could be more or less, depending on screen size */
+             .container-modal {
+                padding: 16px;
+                text-align: center;
+            }       
+        }
+    }
+
+    .fa-trash-alt::before,.fa-edit::before {
+        color: $color-primary;
+    }
+
+    .navbar-burger {
+        margin-left: 0;
+    }
+
+
+// @media screen and (max-width:1023.98889px) {
+//     #side_bar {
+//         display: none;
+//     }
+// }
+@media screen and (max-width:1216.8896px) { 
+    .navbar-burger {
+        display: block;
+    }
+
+    #side_bar {
+        position: absolute;
+        z-index: 25;
+        width: 100%; 
+        transition: top .400s linear;
+        top: -40%;
+    }
+    #side_bar.animated {
+        transition: top .400s linear;
+        top: 7%;
+    }
+ }
