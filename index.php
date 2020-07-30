@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once 'vendor/autoload.php';
 
 $loader = new \Twig\Loader\FilesystemLoader('templates');
@@ -7,18 +7,12 @@ $twig = new \Twig\Environment($loader, [
     'cache' => false,
 ]);
 
-/*
 
-Début Code PHP
+if(isset($_GET['action'])=='logout') {
+    session_unset();
+}
+$user = (isset($_SESSION['user']))? $_SESSION['user'] : "";
 
-*/
 
-
-
-/*
-
-Fin Code PHP
-
-*/
 $template = $twig->load('index.html.twig');
-echo $template->render();
+echo $template->render(['user' => $user]);

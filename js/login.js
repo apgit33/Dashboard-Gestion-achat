@@ -23,7 +23,7 @@ f_login.addEventListener('submit', e => {
     .then(response => response.json())
     .then(datas => {
         if (datas.validation === true) {
-            location.href = "dashboard.php"
+            location.href = "produit.php"
         }
         datas.erreurs.forEach((data) => {
             //On créé un créé un élément HTML option
