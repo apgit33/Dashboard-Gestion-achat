@@ -61,19 +61,26 @@
                                             <div class="field">
                                                 <label for="categorie" class="label">Catégorie :</label>
                                                 <div class="control">
-                                                    <div class="select">
-                                                        <select>
+                                                    <div class="select is-medium is-fullwidth">
+                                                        <select name="categorie">
+                                                            <option selected="selected" disabled>Selectionnez une catégorie</option>
+                                                            <option value="4">Choix 2</option>
                                                             {% for categorie in categories %}
-                                                                <option value={{ categorie.name }}
+                                                                <option value={{ categorie.id }}
                                                                     {% if categorie.name is same as(produit.categorie) %}
-                                                                        selected
+                                                                        selected="selected"
                                                                     {% endif %}
                                                                 >{{ categorie.name }}</option>
-                                                            {% endfor %} #}
+                                                            {% endfor %}
+                                                            <option id="cat_other" value="-1">Autre</option>
                                                         </select>
                                                     </div>
                                                 </div>
+
                                                 <div id="check_categorie" class="verif"></div>
+                                            </div>
+                                            <div id="new_cat" class="field">
+ 
                                             </div>
                                             <div class="field">
                                                 <label for="date_achat" class="label">Date d'achat :</label>

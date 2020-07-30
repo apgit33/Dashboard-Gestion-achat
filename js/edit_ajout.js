@@ -1,7 +1,8 @@
+// *********** Début Input file ***********
 //on récupère tous les input de type file
 const filesInput = document.querySelectorAll('input[type=file]');
 
-//on boucle sur les input récupérés
+//pour chaque file on ajoute un event au changement de l'input
 for (let fileInput of filesInput) {
     fileInput.addEventListener('change', function() {
         if (fileInput.files.length > 0) {
@@ -12,9 +13,10 @@ for (let fileInput of filesInput) {
         }
     });
 }
+// *********** Fin Input file ***********
 
 
-
+// *********** Début Form ***********
 //on récupère le formulaire
 const f_product = document.getElementById('form_product');
 
@@ -103,3 +105,23 @@ f_product.addEventListener('submit', e => {
         });
     });
 });
+// *********** Fin Form ***********
+
+
+// *********** Début Form -> catégorie ***********
+//on récupère les option du select
+const optionsSelect = document.querySelectorAll('select[name=categorie] option');
+//on récupère le champ prévu pour la nouvelle catégorie
+const newCat = document.getElementById('new_cat');
+
+//pour chaque option, on écoute le click, si la valeur est -1 on ajoute la nouvelle catégorie sinon on la retire
+for (let option of optionsSelect) {
+    option.addEventListener('click',function(){
+        if (this.value != -1) {
+            newCat.innerHTML=""
+        }else {
+            newCat.innerHTML ="<label class=\"label\">Nouvelle catégorie :</label><div class=\"control\"><input class=\"input is-medium\" type=\"text\" name=\"new_categorie\"></div>";
+        }
+    });
+}
+// *********** Fin Form -> catégorie ***********
