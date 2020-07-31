@@ -14,6 +14,7 @@ $price = '';
 $maintenance = '';
 $picture = '';
 $manual = '';
+$error = '';
 
 // Vérifie si des valeurs ont bien été rentrées
 if(count($_POST) > 0 ){
@@ -76,6 +77,51 @@ if(count($_POST) > 0 ){
         $id = htmlentities($_POST['id']);
     }
 }
+
+if(isset($_FILES['ticket_file']) && !empty($_FILES['ticket_file']['name'])){
+    $maxsize = 2097152;
+    $extensions = array('jpg', 'jpeg', 'png');
+    if($_FILES['ticket_file']['size'] <= $maxsize){
+        $extensionUpload = strtolower(substr(strrchr($_FILES['ticket_file']['name'], '.'), 1));
+        if(in_array($extensionUpload, $extensions)){
+            $path = "picture/ticket/".$_SESSION['user']."_".$_FILES['ticket_file']['name'].".".$extensionUpload;
+            $result = move_uploaded_file($_FILES['ticket_file']['tmp_name'], $path);
+            if($result){
+                $picture = $path;
+            }else{
+                $erreurs['picture'] = "Une erreur a eu lieu";
+            }
+        }else{
+            $erreurs['picture'] = "L'image n'est pas au bon format!";
+        }
+    }
+    else{
+        $erreurs['picture'] = "Votre image dépasse 2mo!";
+    }
+}
+
+if(isset($_FILES['manual_file']) && !empty($_FILES['manual_file']['name'])){
+    $maxsize = 20971520;
+    $extensions = array('pdf');
+    if($_FILES['manual_file']['size'] <= $maxsize){
+        $extensionUpload = strtolower(substr(strrchr($_FILES['manual_file']['name'], '.'), 1));
+        if(in_array($extensionUpload, $extensions)){
+            $path = "picture/manual/".$_SESSION['user']."_".$_FILES['manual_file']['name'].".".$extensionUpload;
+            $result = move_uploaded_file($_FILES['manual_file']['tmp_name'], $path);
+            if($result){
+                $manual = $path;
+            }else{
+                $erreurs['manual'] = "Une erreur a eu lieu";
+            }
+        }else{
+            $erreurs['manual'] = "Le fichier n'est pas au bon format!";
+        }
+    }
+    else{
+        $erreurs['manual'] = "Votre fichier dépasse 20mo!";
+    }
+}
+
 
 // Si il n'y a pas d'erreur de remplissage, vérifie si on est en état d'édition ou d'ajout et créé une requête sql
 if (!isset($erreurs[1])) {

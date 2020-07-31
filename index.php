@@ -21,22 +21,22 @@ Début Code PHP
     $mdp = '';
 
 // Requête sql d'extraction de données pour comparer aux valeurs inscrites
-    if(isset($_POST['Connexion']) && !empty($_POST['id']) && !empty($_POST['email']) && !empty($_POST['password'])){   
+    if(isset($_POST['Connexion']) && !empty($_POST['nom']) && !empty($_POST['email']) && !empty($_POST['password'])){   
 
-        $sql='SELECT user, email, password FROM member WHERE user=:id email=:email';
+        $sql='SELECT nom, email password FROM user WHERE nom=:nom email=:email';
         $sth = $dbh->prepare($sql);
-        $sth->bindParam(':id', $_POST['id'], PDO::PARAM_STR);
+        $sth->bindParam(':nom', $_POST['nom'], PDO::PARAM_STR);
         $sth->execute();
         $data = $sth->fetch();
     //Insertions des identifiants extraits dans les variables
-    $user= $data['user'];
+    $user= $data['nom'];
     $password = $data['password'];
     //Ouverture de la session
     session_start();
     // Comparaison des valeurs extraites et celle des formulaires
-        if($_POST['id'] == $user && $_POST['password'] == $password){
+        if($_POST['nom'] == $user && $_POST['password'] == $password){
             //Si elles sont bonne, création d'une session
-            $_SESSION['user'] = $user;
+            $_SESSION['nom'] = $user;
             header('Location: index.php');
         }
     }
