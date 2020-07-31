@@ -15,6 +15,7 @@ $maintenance = '';
 $picture = '';
 $manual = '';
 
+var_dump($_POST);
 // Vérifie si des valeurs ont bien été rentrées
 if(count($_POST) > 0 ){
     // Vérifie la valeur de la localisation
@@ -71,6 +72,7 @@ if(count($_POST) > 0 ){
     // }else{
     //     $erreurs[]['picture'] = "je sais pas quoi";
     // }
+    
     // Vérifie la valeur de l'id
     if(isset($_POST['id']) && $_POST['id'] !== "") {
         $id = htmlentities($_POST['id']);
@@ -81,11 +83,11 @@ if(count($_POST) > 0 ){
 if (!isset($erreurs[1])) {
     $validation = true;
     if(isset($_POST['id']) && $_POST['id'] !== "") {
-//             $sql = 'UPDATE products SET localisation=:localisation, name=:name, reference=:reference, categorie=:categorie, date=:date, guarantee=:guarantee, price=:price, maintenance=:maintenance, picture=:picture, manual=:manual WHERE id=:id';
+        //$sql = 'UPDATE products SET localisation=:localisation, name=:name, reference=:reference, categorie=:categorie, date=:date, guarantee=:guarantee, price=:price, maintenance=:maintenance, picture=:picture, manual=:manual WHERE id=:id';
 
         $sql = 'UPDATE products SET localisation=:localisation, name=:name, reference=:reference, date=:date, guarantee=:guarantee, price=:price, maintenance=:maintenance  WHERE id=:id';
     }else {
-            // $sql = "INSERT INTO products(localisation,name,reference,categorie,date,guarantee,price,maintenance,picture,manual) VALUES(:localisation,:name,:reference,:categorie,:date,:guarantee,:price,:maintenance,:picture,:manual)";
+        // $sql = "INSERT INTO products(localisation,name,reference,categorie,date,guarantee,price,maintenance,picture,manual) VALUES(:localisation,:name,:reference,:categorie,:date,:guarantee,:price,:maintenance,:picture,:manual)";
 
         $sql = "INSERT INTO products(localisation,name,reference,date,guarantee,price,maintenance) VALUES(:localisation,:name,:reference,:date,:guarantee,:price,:maintenance)";
     }
