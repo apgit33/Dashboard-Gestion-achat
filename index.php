@@ -10,7 +10,7 @@ $twig = new \Twig\Environment($loader, [
 
 
 if(isset($_GET['action'])=='logout') {
-    session_unset();
+    session_destroy();
 }
 $user = (isset($_SESSION['user']))? $_SESSION['user'] : "";
 
