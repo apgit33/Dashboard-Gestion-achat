@@ -1,3 +1,7 @@
+{% if user is same as("") %}
+    <script>window.location.href = "index.php" </script>
+{% else %}
+
 <!DOCTYPE html>
 <html lang="en">
     {% include "header.html" %}
@@ -10,6 +14,8 @@
                     <!-- Content -->
                     <div class="column ">
                         <h2 class="title has-text-centered">Liste des produits disponible</h2>
+                        <p>Nombre d'articles : {{ total_article }}</p>
+                        <p>Affichage des produits {{ first_article_page }} à {{ last_article_page }} :</p>
                         <table class="table is-hoverable">
                             <thead>
                                 <tr>
@@ -39,7 +45,7 @@
                                         <td class="is-vcentered"> {{ produit.guarantee|date('d-m-Y') }}</td>
                                         <td class="is-vcentered"> {{ produit.price }}</td>
                                         <td class="is-vcentered"> {{ produit.maintenance }}</td>
-                                        <td class="is-vcentered"> <a href={{ "medias/ticket_achat/" ~ produit.picture }} target="_blank"><img src={{ "medias/ticket_achat/" ~ produit.picture }} alt="" width="50" height="50"></a></td>
+                                        <td class="is-vcentered"><a href={{ "medias/ticket_achat/" ~ produit.picture }} target="_blank"><img src={{ "medias/ticket_achat/" ~ produit.picture }} alt="" width="50" height="50"></a></td>
                                         <td class="is-vcentered"><a href={{ "medias/manuels/" ~ produit.manual ~ ".pdf" }}>{{ produit.manual }}</a></td>
                                         <td class="is-vcentered">
                                             <div class="field is-grouped">
@@ -67,7 +73,7 @@
                                                                 </div>
                                                             </div>
                                                         </form>
-                                                        <button class='modal-close is-large' aria-label='close'></button>
+                                                        <button class="modal-close is-large" aria-label="close"></button>
                                                     </div> 
                                                 </div>
                                             </div>
@@ -79,6 +85,24 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                        <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                            <form action="" method="get">
+                                <button class="button pagination-previous" type="submit" name="page" value={{ cPage - 1 }}
+                                    {% if cPage == 1 %}
+                                        disabled title="Vous êtes sur la 1ère page"
+                                    {% endif %}
+                                >Précédent</button>
+                            </form>                 
+                            
+                            <form action="" method="get">
+                                <button class="button pagination-next" type="submit" name="page" value={{ cPage + 1 }}
+                                    {% if cPage is same as(nbPage) %}
+                                        disabled title="Vous êtes sur la dernière page"
+                                    {% endif %}
+                                >Suivant</button>
+                        
+                            </form>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -90,3 +114,4 @@
         <script src="js/main.js"></script>
     </body>
 </html>
+{% endif %}

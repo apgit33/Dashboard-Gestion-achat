@@ -1,3 +1,5 @@
+{% if user is same as("") %}
+
 <!DOCTYPE html>
 <html lang="en">
     {% include "header.html" %}
@@ -5,34 +7,30 @@
         <div class="container">
             <div id="c_parent_login" class="columns is-centered is-desktop is-vcentered is-flex-touch">
                 <div class="column is-6 c_login">
-                    <h2 class="title is-2 has-text-centered">Connectez-vous</h2>
-
-                     <!-- à voir pour plus tard  -->
-                    <!-- <a href="dashboard.php" class="button visiteur">Visiteur</a>  -->
-                    
+                    <h2 class="title is-2 has-text-centered">Connectez-vous</h2>   
                     <form novalidate method="POST" id="f_login">
                         <div class="field">
-                            <label for="email" class="label">Email :</label>
+                            <label for="user_email" class="label">Email :</label>
                             <div class="control has-icons-left">
-                                <input class="input is-medium" type="email" name="email" placeholder="Entrez votre email" id="email" required >
+                                <input class="input is-medium" type="email" name="user_email" placeholder="Entrez votre email" id="user_email" required >
                                 <div class="icon is-left">
                                     <span class="fas fa-envelope"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="field">
-                            <label for="id" class="label">Identifiant :</label>
+                            <label for="user_name" class="label">Utilisateur :</label>
                             <div class="control has-icons-left">
-                                <input class="input is-medium" type="text" name="nom" placeholder="Entrez votre identifiant" id="nom" required >
+                                <input class="input is-medium" type="text" name="user_name" placeholder="Entrez votre identifiant" id="user_name" required >
                                 <div class="icon is-left">
                                     <span class="fas fa-id-badge"></span>              
                                 </div>
                             </div>
                         </div>
                         <div class="field">
-                            <label for="password" class="label">Mot de passe :</label>
+                            <label for="user_password" class="label">Mot de passe :</label>
                             <div class="control has-icons-left">
-                                <input class="input is-medium" type="password" name="password" placeholder="Entrez votre mot de passe" id="password" required>
+                                <input class="input is-medium" type="password" name="user_password" placeholder="Entrez votre mot de passe" id="user_password" required>
                                 <div class="icon is-left">
                                     <span class="fas fa-unlock-alt"></span>     
                                 </div>
@@ -52,3 +50,6 @@
         <script src="js/login.js"></script>
     </body>
 </html>
+{% else %}
+    <script>window.location.href = "produit.php" </script>
+{% endif %}
