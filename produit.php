@@ -9,6 +9,15 @@ $twig = new \Twig\Environment($loader, [
 ]);
 $user = (isset($_SESSION['user']))? $_SESSION['user'] : "";
 
+// Vérifie si il peut récupérer un id
+if (isset( $_POST['modal_delete'])){
+    // Requête sql de supression
+    $sql = 'DELETE FROM products WHERE id=:id';
+    $sth = $dbh->prepare($sql);
+    $sth->bindParam(':id', $_POST['modal_delete'], PDO::PARAM_INT);
+    $sth->execute();
+} 
+
 //Requete pour le nombre d'articles total
 $query = "SELECT count(id) as total_article FROM products";
 $sth = $dbh->prepare($query);
@@ -26,7 +35,7 @@ $first_article_page = $limit + 1;
 $last_article_page = $limit + $nombre;
 
 //  Requête sql d'éxtracton d'informations de la base de donnée
-$sql = "SELECT id, localisation, name, reference, categorie, date, guarantee, price, maintenance, picture, manual FROM products LIMIT $limit,$nombre";
+$sql = "SELECT products.id, localisation, name, reference,  categorie.nom as categorie, date, guarantee, price, maintenance, picture, manual,adresse FROM products INNER JOIN categorie ON categorie.id = products.categorie LIMIT $limit,$nombre";
 $sth = $dbh->prepare($sql);
 $sth->execute();
 
@@ -45,5 +54,4 @@ echo $template->render([
     'cPage' => $cPage,
     'first_article_page' => $first_article_page,
     'last_article_page' => $last_article_page,
-
 ]);

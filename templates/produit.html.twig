@@ -16,75 +16,77 @@
                         <h2 class="title has-text-centered">Liste des produits disponible</h2>
                         <p>Nombre d'articles : {{ total_article }}</p>
                         <p>Affichage des produits {{ first_article_page }} à {{ last_article_page }} :</p>
-                        <table class="table is-hoverable">
-                            <thead>
-                                <tr>
-                                    <th>Nom</th>
-                                    <th>Référence</th>
-                                    <th>Localisation</th>
-                                    <th>Adresse</th>
-                                    <th>Catégorie</th>
-                                    <th>Achat</th>
-                                    <th>Garantie</th>
-                                    <th>Prix</th>
-                                    <th>Maintenance</th>
-                                    <th>Ticket achat</th>
-                                    <th>Manuel</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for produit in liste_produits %}
+                        <div class="table-container">
+                            <table class="table is-hoverable">
+                                <thead>
                                     <tr>
-                                        <td class="is-vcentered"> {{ produit.name }}</td>
-                                        <td class="is-vcentered"> {{ produit.reference }}</td>
-                                        <td class="is-vcentered"> {{ produit.localisation }}</td>
-                                        <td class="is-vcentered"> {{ produit.adresse }}</td>
-                                        <td class="is-vcentered"> {{ produit.categorie }}</td>
-                                        <td class="is-vcentered"> {{ produit.date|date('d-m-Y') }}</td>
-                                        <td class="is-vcentered"> {{ produit.guarantee|date('d-m-Y') }}</td>
-                                        <td class="is-vcentered"> {{ produit.price }}</td>
-                                        <td class="is-vcentered"> {{ produit.maintenance }}</td>
-                                        <td class="is-vcentered"><a href={{ "medias/ticket_achat/" ~ produit.picture }} target="_blank"><img src={{ "medias/ticket_achat/" ~ produit.picture }} alt="" width="50" height="50"></a></td>
-                                        <td class="is-vcentered"><a href={{ "medias/manuels/" ~ produit.manual ~ ".pdf" }}>{{ produit.manual }}</a></td>
-                                        <td class="is-vcentered">
-                                            <div class="field is-grouped">
-                                                <div class="control">
-                                                    <form action="edit.php" method="GET">
-                                                        <input type="hidden" name="id" value={{ produit.id }}>
-                                                        <button type ="submit" class="button is-success far fa-edit" name="edit" value="1"></button>
-                                                    </form>
-                                                </div>
-                                                
-                                                <div class="control">
-                                                    <button class="button btn_delete is-danger far fa-trash-alt" name="delete"></button>
-                                                    {# Création de la modal de suppression #}
-                                                    <div class="modal">
-                                                        <form class="modal-content" action="" method="post">
-                                                            <div class="container-modal">
-                                                                <p class="title is-3">Supprimer le produit : {{ produit.name }}</p>
-                                                                <div class="buttons is-centered">
-                                                                    <div class="control">
-                                                                        <button type="submit" class="button is-success">Cancel</button>
-                                                                    </div>
-                                                                    <div class="control">
-                                                                        <button type="submit" class="button is-danger" name="modal_delete" value={{ produit.id }}>Delete</button>
+                                        <th>Nom</th>
+                                        <th>Référence</th>
+                                        <th>Localisation</th>
+                                        <th>Adresse</th>
+                                        <th>Catégorie</th>
+                                        <th>Achat</th>
+                                        <th>Garantie</th>
+                                        <th>Prix</th>
+                                        <th>Maintenance</th>
+                                        <th>Ticket achat</th>
+                                        <th>Manuel</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for produit in liste_produits %}
+                                        <tr>
+                                            <td class="is-vcentered"> {{ produit.name }}</td>
+                                            <td class="is-vcentered"> {{ produit.reference }}</td>
+                                            <td class="is-vcentered"> {{ produit.localisation }}</td>
+                                            <td class="is-vcentered"> {{ produit.adresse }}</td>
+                                            <td class="is-vcentered"> {{ produit.categorie }}</td>
+                                            <td class="is-vcentered"> {{ produit.date|date('d-m-Y') }}</td>
+                                            <td class="is-vcentered"> {{ produit.guarantee|date('d-m-Y') }}</td>
+                                            <td class="is-vcentered"> {{ produit.price }}</td>
+                                            <td class="is-vcentered"> {{ produit.maintenance }}</td>
+                                            <td class="is-vcentered"><a href={{ "medias/ticket_achat/" ~ produit.picture }} target="_blank"><img src={{ "medias/ticket_achat/" ~ produit.picture }} alt="" width="50" height="50"></a></td>
+                                            <td class="is-vcentered"><a href={{ "medias/manual/" ~ produit.manual }}>{{ produit.manual }}</a></td>
+                                            <td class="is-vcentered">
+                                                <div class="field is-grouped">
+                                                    <div class="control">
+                                                        <form action="edit.php" method="GET">
+                                                            <input type="hidden" name="id" value={{ produit.id }}>
+                                                            <button type ="submit" class="button is-success far fa-edit" name="edit" value="1"></button>
+                                                        </form>
+                                                    </div>
+                                                    
+                                                    <div class="control">
+                                                        <button class="button btn_delete is-danger far fa-trash-alt" name="delete"></button>
+                                                        {# Création de la modal de suppression #}
+                                                        <div class="modal">
+                                                            <form class="modal-content" action="" method="post">
+                                                                <div class="container-modal">
+                                                                    <p class="title is-3">Supprimer le produit : {{ produit.name }}</p>
+                                                                    <div class="buttons is-centered">
+                                                                        <div class="control">
+                                                                            <button type="submit" class="button is-success">Cancel</button>
+                                                                        </div>
+                                                                        <div class="control">
+                                                                            <button type="submit" class="button is-danger" name="modal_delete" value={{ produit.id }}>Delete</button>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </form>
-                                                        <button class="modal-close is-large" aria-label="close"></button>
-                                                    </div> 
+                                                            </form>
+                                                            <button class="modal-close is-large" aria-label="close"></button>
+                                                        </div> 
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                {% else %}
-                                    <p class="">Il n'existe aucun produits</p>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                                            </td>
+                                        </tr>
+    
+                                    {% else %}
+                                        <p class="">Il n'existe aucun produits</p>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                         <nav class="pagination is-centered" role="navigation" aria-label="pagination">
                             <form action="" method="get">
                                 <button class="button pagination-previous" type="submit" name="page" value={{ cPage - 1 }}
@@ -96,7 +98,7 @@
                             
                             <form action="" method="get">
                                 <button class="button pagination-next" type="submit" name="page" value={{ cPage + 1 }}
-                                    {% if cPage is same as(nbPage) %}
+                                    {% if cPage == nbPage %}
                                         disabled title="Vous êtes sur la dernière page"
                                     {% endif %}
                                 >Suivant</button>
