@@ -18,9 +18,10 @@
     $font-text :  'nunito-regular';
     $font-title : 'nunito-bold';
   
-    $color-primary :  rgb(52, 58, 64);
-    $color-secondary :#F3F3F3;
-    $color-white :    white;
+    $color-primary      :   #343a40;
+    $color-secondary    :   #f3f3f3;
+    $color-white        :   white;
+    $color-red          :   red;
     
     // -----------------
     // Classes générales
@@ -38,12 +39,7 @@
         font-family: $font-text;
         background-color: $color-secondary;
     }
-    .h-100s {
-        min-height: 100vh;
-    }
-    h2 {
-        font-family: $font-title;
-    }
+    h2 {font-family: $font-title;}
     .m-0{margin: 0!important;}
     .p-0{padding: 0;}
     // -----------------
@@ -52,9 +48,7 @@
     #c_parent_login {
         height: 100vh;
         .c_login {
-            // position: relative;
             box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-
             #f_login {
                 input {
                     font-family: $font-text; 
@@ -77,10 +71,7 @@
 #side_bar {
     background-color: $color-primary;
     padding-top: 30px;
-    // height: 100vh;
-    // padding-right: 0;
     .menu,.menu-label, li>a {
-        // margin-top: 12px;
         color: $color-secondary;
     }
     li>a:hover {
@@ -92,25 +83,15 @@
     }
     .content {
         min-height: calc(100vh - 81px);
-        // position: relative;
-        // background-color: rgb(243, 243, 243);
     }
     .footerp {
-        // height: 100px !important;
-        // bottom: -30px;
         left: 50%;
-        // position: fixed;
-        // right: 0;
-        background-color: rgb(255, 255, 255);
-
     }
 
     textarea {
         height: 272px !important;
     }
-    .verif {
-        color: red;
-    }
+    .verif {color: $color-red;}
 
 
 // Modal suppression
@@ -144,7 +125,6 @@
         margin-left: 0;
     }
 
-
     .pagination {
         margin: auto;
         width: 25%;
@@ -152,7 +132,10 @@
     .menu_connection {
         display: none;
     }
-
+    .menu_actif {
+        background-color: $color-white;
+        color: $color-primary!important;
+    }
 @media screen and (max-width:1216.8896px) { 
     .logo {display: none;}
     .navbar-burger {display: block;}
