@@ -13,20 +13,20 @@
                         <!-- Content -->
                         <div class="column ">
                                     <h2 class="title has-text-centered">{{ titre }}</h2>
-                                    <form action="" id="form_product" method="POST">
+                                    <form action="" id="form_product" method="POST" enctype="multipart/form-data">
                                     <div class="columns is-centered m-0">
                                         <div class="column">
                                             <div class="field">
                                                 <label for="name" class="label">Nom :</label>
                                                 <div class="control">
-                                                    <input required class="input is-medium" type="text" name="name" id="name" value={{ produit.name }}>
+                                                    <input required="required" class="input is-medium" type="text" name="name" id="name" value={{ produit.name }}>
                                                 </div>
                                                 <div id="check_name" class="verif"></div>
                                             </div>
                                             <div class="field">
                                                 <label for="reference" class="label">Référence :</label>
                                                 <div class="control">
-                                                    <input class="input is-medium" type="text" name="reference" id="reference" value={{ produit.reference }}>
+                                                    <input required="required" class="input is-medium" type="text" name="reference" id="reference" value={{ produit.reference }}>
                                                 </div>
                                                 <div id="check_reference" class="verif"></div>
                                             </div>
@@ -34,7 +34,7 @@
                                                 <label for="localisation" class="label">Localisation :</label>
                                                 <div class="control">
                                                     <label class="radio">
-                                                        <input type="radio" name="localisation" value="vente directe" 
+                                                        <input required="required" type="radio" name="localisation" value="vente directe" 
                                                             {% if "vente directe" is same as(produit.localisation) %}
                                                                 checked
                                                             {% endif %}
@@ -65,33 +65,33 @@
                                                 <div class="control">
                                                     <div class="select is-medium is-fullwidth">
                                                         <select name="categorie">
-                                                            <option selected="selected" disabled>Selectionnez une catégorie</option>
-                                                            <option value="4">Choix 2</option>
+                                                            <option  value="0" selected="selected" disabled>Selectionnez une catégorie</option>
+                                                            <option id="cat_other" value="-1">Autre</option>
                                                             {% for categorie in categories %}
                                                                 <option value={{ categorie.id }}
-                                                                    {% if categorie.name is same as(produit.categorie) %}
+                                                                    {% if categorie.id == produit.categorie %}
                                                                         selected="selected"
                                                                     {% endif %}
-                                                                >{{ categorie.name }}</option>
+                                                                >{{ categorie.nom }}</option>
                                                             {% endfor %}
-                                                            <option id="cat_other" value="-1">Autre</option>
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <div id="new_cat"></div>
+                                                <div id="check_categorie" class="verif"></div>
                                             </div>
-                                            <div id="new_cat" class="field"></div>
-                                            <div id="check_categorie" class="verif"></div>
+
                                             <div class="field">
                                                 <label for="date_achat" class="label">Date d'achat :</label>
                                                 <div class="control">
-                                                    <input required class="input is-medium" type="date" name="date_achat" id="date_achat" value={{ produit.date }}>
+                                                    <input required="required" class="input is-medium" type="date" name="date_achat" id="date_achat" value={{ produit.date }}>
                                                 </div>
                                                 <div id="check_date_achat" class="verif"></div>
                                             </div>
                                             <div class="field">
                                                 <label for="date_guarantee" class="label">Date de garantie :</label>
                                                 <div class="control">
-                                                    <input required class="input is-medium" type="date" name="date_guarantee" id="date_guarantee" value={{ produit.guarantee }}>
+                                                    <input required="required" class="input is-medium" type="date" name="date_guarantee" id="date_guarantee" value={{ produit.guarantee }}>
                                                 </div>
                                                 <div id="check_date_garantie" class="verif"></div>
                                             </div>
@@ -101,7 +101,7 @@
                                             <div class="field">
                                                 <label for="price" class="label">Prix :</label>
                                                 <div class="control">
-                                                    <input required class="input is-medium" type="text" name="price" id="price" value={{ produit.price }}>
+                                                    <input required="required" class="input is-medium" type="text" name="price" id="price" value={{ produit.price }}>
                                                 </div>
                                                 <div id="check_price" class="verif"></div>
                                             </div>
@@ -120,7 +120,10 @@
                                                 </label>
                                                 <div id="ticket_file" class="file has-name is-medium">
                                                     <label class="file-label">
-                                                        <input type="file" class="file-input" name="ticket_file">
+                                                        <input 
+                                                        {% if produit.picture == "" %}
+                                                            required="required"
+                                                        {% endif %} type="file" class="file-input" name="ticket_file">
                                                         <div class="file-cta">
                                                             <div class="file-icon">
                                                                 <span class="fas fa-upload"></span>
@@ -139,12 +142,16 @@
                                             <div class="field">
                                                 <label for="manual_file" class="label">Manuel :  
                                                     {% if produit.manual %}
-                                                        <a href={{ "medias/manuels/" ~ produit.manual ~ ".pdf" }}>{{ produit.manual }}</a>
+                                                        <a href={{ "medias/manual/" ~ produit.manual }}>{{ produit.manual }}</a>
                                                     {% endif %}
                                                 </label>
                                                 <div id="manual_file" class="file has-name is-medium">
                                                     <label class="file-label">
-                                                        <input type="file" class="file-input" name="manual_file">
+                                                        <input 
+                                                            {% if produit.manual == ("") %}
+                                                                required="required"
+                                                            {% endif %}
+                                                            type="file" class="file-input" name="manual_file">
                                                         <div class="file-cta">
                                                             <div class="file-icon">
                                                                 <span class="fas fa-upload"></span>
@@ -166,6 +173,9 @@
                                         <div class="column">
                                             <div class="field">
                                                 <input type ="hidden" name="id" value = {{ produit.id }}>
+                                            {% if produit %}
+                                                <input type ="hidden" name="edit_prod">
+                                            {% endif %}
                                                 <div class="control">
                                                     <button type ="submit" class="button is-success" name="edit">Confirm</button>
                                                 </div>

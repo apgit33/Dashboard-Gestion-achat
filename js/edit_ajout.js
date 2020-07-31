@@ -72,14 +72,14 @@ f_product.addEventListener('submit', e => {
                 champ.innerHTML = data.categorie;
                 document.getElementById("check_categorie").appendChild(champ);
             }
-            if(data.date_achat) {
+            if(data.date) {
                 let champ = document.createElement("p");
-                champ.innerHTML = data.date_achat;
+                champ.innerHTML = data.date;
                 document.getElementById("check_date_achat").appendChild(champ);
             }
-            if(data.date_guarantee) {
+            if(data.guarantee) {
                 let champ = document.createElement("p");
-                champ.innerHTML = data.date_guarantee;
+                champ.innerHTML = data.guarantee;
                 document.getElementById("check_date_garantie").appendChild(champ);
             }
             if(data.price) {
