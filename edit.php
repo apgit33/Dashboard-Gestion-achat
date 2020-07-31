@@ -32,6 +32,8 @@ if(isset($_GET['id']) && isset($_GET['edit'])){
 }
 
 
+
+
 $template = $twig->load('edit.html.twig');
 echo $template->render([
     'titre' => $titre,

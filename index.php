@@ -8,6 +8,7 @@ $twig = new \Twig\Environment($loader, [
 ]);
 
 
+
 if(isset($_GET['action'])=='logout') {
     session_unset();
 }
