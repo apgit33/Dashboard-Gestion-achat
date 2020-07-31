@@ -32,11 +32,16 @@ if(isset($_GET['id']) && isset($_GET['edit'])){
 }
 
 
-
+// ********** Categorie **********
+$query = "SELECT id,nom FROM categorie ORDER BY `categorie`.`nom` ASC ";
+$sth = $dbh->prepare($query);
+$sth->execute();
+$categories = $sth->fetchAll(PDO::FETCH_ASSOC);
 
 $template = $twig->load('edit.html.twig');
 echo $template->render([
     'titre' => $titre,
     'produit' => $data,
-    'user' => $user
+    'user' => $user,
+    'categories' => $categories
 ]);
