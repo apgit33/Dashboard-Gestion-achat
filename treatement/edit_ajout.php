@@ -2,12 +2,11 @@
 session_start();
 require_once "../db.php";
 
-// Variables vide à remplir
+// initialisation/récupération des variables
 $validation = false;
 $erreurs[]= "";
-
-$ticket = '';
-$manual = '';
+$ticket = "";
+$manual = "";
 
 $name = (isset($_POST['name']) ? trim($_POST['name']):"");
 $reference = (isset($_POST['reference']) ? trim($_POST['reference']):"");
@@ -18,9 +17,11 @@ $date = (isset($_POST['date_achat']) ? trim($_POST['date_achat']):"");
 $guarantee = (isset($_POST['date_guarantee']) ? trim($_POST['date_guarantee']):"");
 $price = (isset($_POST['price']) ? trim($_POST['price']):"");
 $maintenance = (isset($_POST['maintenance']) ? trim($_POST['maintenance']):"");
-
 $new_categorie = (isset($_POST['new_categorie']) ? trim($_POST['new_categorie']):"");
 
+/* **************
+Début des tests 
+************** */
 if(($categorie == -1 && ( $new_categorie =="" || !preg_match('^[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*$^',$new_categorie))) || ($categorie==0)){
     $erreurs[]["categorie"] = "categorie incorrect";
 }
@@ -33,8 +34,10 @@ if(!preg_match('^[A-Za-z0-9]$^',$reference)) {
 if(!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$date) || $date == "") {
     $erreurs[]["date"] = "Date d'achat invalide";
 }
-if(!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$date)) {
+if(!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$guarantee) || $guarantee == "") {
     $erreurs[]["guarantee"] = "Date de garentie invalide";
+}elseif ($guarantee <= $date) {
+    $erreurs[]["guarantee"] = "Date de garentie inférieure à la date d'achat";
 }
 if(!preg_match("/^-?(?:\d+|\d*\.\d+)$/",$price)) {
     $erreurs[]["price"] = "Prix incorrect";
@@ -42,11 +45,9 @@ if(!preg_match("/^-?(?:\d+|\d*\.\d+)$/",$price)) {
 if($localisation == "") {
     $erreurs[]['localisation'] = "localisation non renseignée";
 } 
-    
-if(strlen(trim($_POST['maintenance'])) == 0){
+if(strlen(trim($_POST['maintenance'])) == 0){ 
     $erreurs[]['maintenance'] = "Champ vide";
 }
-
 
 // Vérifie la valeur de l'id
 if(isset($_POST['id']) && $_POST['id'] !== "") {
@@ -73,7 +74,6 @@ if(isset($_FILES['ticket_file']) && !empty($_FILES['ticket_file']['name'])){
     else{
         $erreurs[]['ticket'] = "Votre image dépasse 2mo!";
     }
-    
 } elseif (!isset($_POST['edit_prod'])) {
     $erreurs[]['ticket'] = "Fichier non renseigné";
 }
@@ -98,9 +98,10 @@ if(isset($_FILES['manual_file']) && !empty($_FILES['manual_file']['name'])){
     else{
         $erreurs[]['manual'] = "Votre fichier dépasse 20mo!";
     }
-} elseif (!isset($_POST['edit_prod'])) {
-    $erreurs[]['manual'] = "Fichier non renseigné";
 }
+/* **************
+Fin des tests 
+************** */
 
 // Si il n'y a pas d'erreur de remplissage, vérifie si on est en état d'édition ou d'ajout et créé une requête sql
 if (!isset($erreurs[1])) {
