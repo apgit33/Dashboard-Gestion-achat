@@ -22,18 +22,15 @@ f_login.addEventListener('submit', e => {
     })
     .then(response => response.json())
     .then(datas => {
+        //si il n'y a pas d'erreur, on redirige vers la page produit.php
         if (datas.validation === true) {
             location.href = "produit.php"
         }
-        datas.erreurs.forEach((data) => {
-            //On créé un créé un élément HTML option
+        //s'il y a une erreur, crée un nouveau champ html et l'ajoute à la div d'erreur
+        if (datas.erreur !== "") {
             let champ = document.createElement("p");
-
-            //On affecte la valeur de l'élément créé
-            champ.innerHTML = data;
-
-            //On ajoute en noeud enfant à la datalist l'option créé
+            champ.innerHTML = datas.erreur;
             login_erreur.appendChild(champ);
-        });
+        }
     });
 });
