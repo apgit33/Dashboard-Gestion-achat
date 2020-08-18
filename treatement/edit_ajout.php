@@ -10,6 +10,9 @@ $manual = "";
 $valide_ticket = false;
 $valide_manual = false;
 $path_ticket = "";
+$extensionUpload_ticket = "";
+$extensionUpload_manual = "";
+
 
 $name = (isset($_POST['name']) ? trim($_POST['name']):"");
 $reference = (isset($_POST['reference']) ? trim($_POST['reference']):"");
@@ -88,9 +91,9 @@ if(isset($_FILES['ticket_file']) && !empty($_FILES['ticket_file']['name'])){
     $maxsize = 2097152;
     $extensions = array('jpg', 'jpeg', 'png');
     if($_FILES['ticket_file']['size'] <= $maxsize){
-        $extensionUpload = strtolower(substr(strrchr($_FILES['ticket_file']['name'], '.'), 1));
-        if(in_array($extensionUpload, $extensions)){
-            $path_ticket = "../medias/ticket_achat/$reference.$extensionUpload";
+        $extensionUpload_ticket = strtolower(substr(strrchr($_FILES['ticket_file']['name'], '.'), 1));
+        if(in_array($extensionUpload_ticket, $extensions)){
+            $path_ticket = "../medias/ticket_achat/$reference.$extensionUpload_ticket";
             $valide_ticket = true; //création des fichiers ligne 121
         }else{
             $erreurs[]['ticket'] = "L'image n'est pas au bon format!";
@@ -108,9 +111,9 @@ if(isset($_FILES['manual_file']) && !empty($_FILES['manual_file']['name'])){
     $maxsize = 20971520;
     $extensions = array('pdf');
     if($_FILES['manual_file']['size'] <= $maxsize){
-        $extensionUpload = strtolower(substr(strrchr($_FILES['manual_file']['name'], '.'), 1));
-        if(in_array($extensionUpload, $extensions)){
-            $path_manual = "../medias/manual/$reference.$extensionUpload";
+        $extensionUpload_manual = strtolower(substr(strrchr($_FILES['manual_file']['name'], '.'), 1));
+        if(in_array($extensionUpload_manual, $extensions)){
+            $path_manual = "../medias/manual/$reference.$extensionUpload_manual";
             $valide_manual = true; //création des fichiers ligne 124
         }else{
             $erreurs[]['manual'] = "Le fichier n'est pas au bon format!";
@@ -136,10 +139,10 @@ if (!isset($erreurs[1])) {
 
     //on crée les fichiers ici pour éviter d'en créer un à chaque erreur
     if(move_uploaded_file($_FILES['ticket_file']['tmp_name'], $path_ticket)){
-        $ticket = "$reference.$extensionUpload";
+        $ticket = "$reference.$extensionUpload_ticket";
     }
     if(move_uploaded_file($_FILES['manual_file']['tmp_name'], $path_manual)){
-        $manual = "$reference.$extensionUpload";
+        $manual = "$reference.$extensionUpload_manual";
     }
 
     //si une nouvelle catégorie est crée, on l'insere dans la BDD
