@@ -93,8 +93,7 @@ if(isset($_FILES['ticket_file']) && !empty($_FILES['ticket_file']['name'])){
     if($_FILES['ticket_file']['size'] <= $maxsize){
         $extensionUpload_ticket = strtolower(substr(strrchr($_FILES['ticket_file']['name'], '.'), 1));
         if(in_array($extensionUpload_ticket, $extensions)){
-            $path_ticket = "../medias/ticket_achat/$reference.$extensionUpload_ticket";
-            $valide_ticket = true; //création des fichiers ligne 121
+            $valide_ticket = true; //création des fichiers plus bas (avant insertion sql)
         }else{
             $erreurs[]['ticket'] = "L'image n'est pas au bon format!";
         }
@@ -113,8 +112,7 @@ if(isset($_FILES['manual_file']) && !empty($_FILES['manual_file']['name'])){
     if($_FILES['manual_file']['size'] <= $maxsize){
         $extensionUpload_manual = strtolower(substr(strrchr($_FILES['manual_file']['name'], '.'), 1));
         if(in_array($extensionUpload_manual, $extensions)){
-            $path_manual = "../medias/manual/$reference.$extensionUpload_manual";
-            $valide_manual = true; //création des fichiers ligne 124
+            $valide_manual = true; //création des fichiers plus bas (avant insertion sql)
         }else{
             $erreurs[]['manual'] = "Le fichier n'est pas au bon format!";
         }
@@ -138,10 +136,10 @@ if (!isset($erreurs[1])) {
     $validation = true;
 
     //on crée les fichiers ici pour éviter d'en créer un à chaque erreur
-    if(move_uploaded_file($_FILES['ticket_file']['tmp_name'], $path_ticket)){
+    if(move_uploaded_file($_FILES['ticket_file']['tmp_name'], "../medias/ticket_achat/$reference.$extensionUpload_ticket")){
         $ticket = "$reference.$extensionUpload_ticket";
     }
-    if(move_uploaded_file($_FILES['manual_file']['tmp_name'], $path_manual)){
+    if(move_uploaded_file($_FILES['manual_file']['tmp_name'], "../medias/manual/$reference.$extensionUpload_manual")){
         $manual = "$reference.$extensionUpload_manual";
     }
 
@@ -179,7 +177,7 @@ if (!isset($erreurs[1])) {
     $sth->bindParam(':price', $price, PDO::PARAM_STR);
     $sth->bindParam(':maintenance', $maintenance, PDO::PARAM_STR);
     if ($ticket !=""){$sth->bindParam(':picture', $ticket, PDO::PARAM_STR);}
-    $sth->bindParam(':manual', $manual, PDO::PARAM_STR);
+    if ($manual !=""){$sth->bindParam(':manual', $manual, PDO::PARAM_STR);}
     if(isset($_POST['id']) && $_POST['id'] !== "") {
         $sth->bindParam('id', $id, PDO::PARAM_INT);
     }
