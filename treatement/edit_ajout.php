@@ -7,6 +7,9 @@ $validation = false;
 $erreurs[]= "";
 $ticket = "";
 $manual = "";
+$valide_ticket = false;
+$valide_manual = false;
+$path_ticket = "";
 
 $name = (isset($_POST['name']) ? trim($_POST['name']):"");
 $reference = (isset($_POST['reference']) ? trim($_POST['reference']):"");
@@ -22,51 +25,73 @@ $new_categorie = (isset($_POST['new_categorie']) ? trim($_POST['new_categorie'])
 /* **************
 Début des tests 
 ************** */
-if(($categorie == -1 && ( $new_categorie =="" || !preg_match('^[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*$^',$new_categorie))) || ($categorie==0)){
-    $erreurs[]["categorie"] = "categorie incorrect";
-}
-if(!preg_match('^[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*$^',$name)) {
+//nom
+if(!preg_match("/^[\p{L}-]*$/u",$name)) {
     $erreurs[]["name"] = "Nom incorrect";
 }
-if(!preg_match('^[A-Za-z0-9]$^',$reference)) {
-    $erreurs[]["reference"] = "reference incorrect";
+
+//référence
+if(!preg_match("/^[\p{L}\p{N}_.-]*$/u",$reference)) {
+    $erreurs[]["reference"] = "référence incorrect";
+}else{
+    //teste si la référence est déjà présente dans la BDD
+    $sth = $dbh->prepare("SELECT id FROM products WHERE `reference`= :ref");
+    $sth->bindParam(":ref", $reference, PDO::PARAM_STR);
+    $sth->execute();
+    if ($sth->fetch(PDO::FETCH_ASSOC)) {
+        $erreurs[]["reference"] = "référence déjà existante";
+    }
 }
+
+//localisation
+if($localisation == "") {
+    $erreurs[]['localisation'] = "localisation non renseignée";
+}
+
+//catégorie
+if(($categorie == -1 && ( $new_categorie =="" || !preg_match("/^[\p{L}\p{N}_.-]*$/u",$new_categorie))) || ($categorie==0)){
+    $erreurs[]["categorie"] = "catégorie incorrect";
+}else{
+    //teste si la catégorie est déjà présente dans la BDD
+    $sth = $dbh->prepare("SELECT id FROM categorie WHERE `nom`= :name");
+    $sth->bindParam(":name", $new_categorie, PDO::PARAM_STR);
+    $sth->execute();
+    if ($sth->fetch(PDO::FETCH_ASSOC)) {
+        $erreurs[]["categorie"] = "catégorie déjà existante";
+    }
+}
+
+//date d'achat
 if(!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$date) || $date == "") {
     $erreurs[]["date"] = "Date d'achat invalide";
 }
+
+//date de garentie
 if(!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$guarantee) || $guarantee == "") {
     $erreurs[]["guarantee"] = "Date de garentie invalide";
 }elseif ($guarantee <= $date) {
     $erreurs[]["guarantee"] = "Date de garentie inférieure à la date d'achat";
 }
+
+//prix
 if(!preg_match("/^-?(?:\d+|\d*\.\d+)$/",$price)) {
     $erreurs[]["price"] = "Prix incorrect";
 }
-if($localisation == "") {
-    $erreurs[]['localisation'] = "localisation non renseignée";
-} 
-if(strlen(trim($_POST['maintenance'])) == 0){ 
-    $erreurs[]['maintenance'] = "Champ vide";
+
+//maintenance
+if(strlen(trim($maintenance)) < 5 || strlen(trim($maintenance)) >= 255){ 
+    $erreurs[]['maintenance'] = "Entre 5 et 255 caractères seulement : ".strlen(trim($maintenance))." actuellement";
 }
 
-// Vérifie la valeur de l'id
-if(isset($_POST['id']) && $_POST['id'] !== "") {
-    $id = htmlentities($_POST['id']);
-}
-
+//ticket d'achat
 if(isset($_FILES['ticket_file']) && !empty($_FILES['ticket_file']['name'])){
     $maxsize = 2097152;
     $extensions = array('jpg', 'jpeg', 'png');
     if($_FILES['ticket_file']['size'] <= $maxsize){
         $extensionUpload = strtolower(substr(strrchr($_FILES['ticket_file']['name'], '.'), 1));
         if(in_array($extensionUpload, $extensions)){
-            $path = "../medias/ticket_achat/".$_SESSION['user']."_".$_FILES['ticket_file']['name'];
-            $result = move_uploaded_file($_FILES['ticket_file']['tmp_name'], $path);
-            if($result){
-                $ticket = $_SESSION['user']."_".$_FILES['ticket_file']['name'];
-            }else{
-                $erreurs[]['ticket'] = "Une erreur a eu lieu";
-            }
+            $path_ticket = "../medias/ticket_achat/$reference.$extensionUpload";
+            $valide_ticket = true; //création des fichiers ligne 121
         }else{
             $erreurs[]['ticket'] = "L'image n'est pas au bon format!";
         }
@@ -78,19 +103,15 @@ if(isset($_FILES['ticket_file']) && !empty($_FILES['ticket_file']['name'])){
     $erreurs[]['ticket'] = "Fichier non renseigné";
 }
 
+//manuel
 if(isset($_FILES['manual_file']) && !empty($_FILES['manual_file']['name'])){
     $maxsize = 20971520;
     $extensions = array('pdf');
     if($_FILES['manual_file']['size'] <= $maxsize){
         $extensionUpload = strtolower(substr(strrchr($_FILES['manual_file']['name'], '.'), 1));
         if(in_array($extensionUpload, $extensions)){
-            $path = "../medias/manual/".$_SESSION['user']."_".$_FILES['manual_file']['name'];
-            $result = move_uploaded_file($_FILES['manual_file']['tmp_name'], $path);
-            if($result){
-                $manual = $_SESSION['user']."_".$_FILES['manual_file']['name'];
-            }else{
-                $erreurs[]['manual'] = "Une erreur a eu lieu";
-            }
+            $path_manual = "../medias/manual/$reference.$extensionUpload";
+            $valide_manual = true; //création des fichiers ligne 124
         }else{
             $erreurs[]['manual'] = "Le fichier n'est pas au bon format!";
         }
@@ -99,6 +120,12 @@ if(isset($_FILES['manual_file']) && !empty($_FILES['manual_file']['name'])){
         $erreurs[]['manual'] = "Votre fichier dépasse 20mo!";
     }
 }
+
+// Vérifie la valeur de l'id
+if(isset($_POST['id']) && $_POST['id'] !== "") {
+    $id = htmlentities($_POST['id']);
+}
+
 /* **************
 Fin des tests 
 ************** */
@@ -107,11 +134,20 @@ Fin des tests
 if (!isset($erreurs[1])) {
     $validation = true;
 
+    //on crée les fichiers ici pour éviter d'en créer un à chaque erreur
+    if(move_uploaded_file($_FILES['ticket_file']['tmp_name'], $path_ticket)){
+        $ticket = "$reference.$extensionUpload";
+    }
+    if(move_uploaded_file($_FILES['manual_file']['tmp_name'], $path_manual)){
+        $manual = "$reference.$extensionUpload";
+    }
+
+    //si une nouvelle catégorie est crée, on l'insere dans la BDD
     if ($new_categorie != ""){
         $sth = $dbh->prepare("INSERT INTO categorie(nom) VALUES (:nom)");
         $sth->bindParam(':nom', $new_categorie, PDO::PARAM_STR);
         $sth->execute();
-        $categorie = $dbh->lastInsertId();
+        $categorie = $dbh->lastInsertId(); //on récupère l'id de la nouvelle catégorie
     }
 
     if(isset($_POST['id']) && $_POST['id'] !== "") {
@@ -140,7 +176,7 @@ if (!isset($erreurs[1])) {
     $sth->bindParam(':price', $price, PDO::PARAM_STR);
     $sth->bindParam(':maintenance', $maintenance, PDO::PARAM_STR);
     if ($ticket !=""){$sth->bindParam(':picture', $ticket, PDO::PARAM_STR);}
-    if ($manual !=""){$sth->bindParam(':manual', $manual, PDO::PARAM_STR);}
+    $sth->bindParam(':manual', $manual, PDO::PARAM_STR);
     if(isset($_POST['id']) && $_POST['id'] !== "") {
         $sth->bindParam('id', $id, PDO::PARAM_INT);
     }
