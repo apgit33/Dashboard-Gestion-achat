@@ -175,7 +175,7 @@ if (!isset($erreurs[1])) {
     $sth->bindParam(':reference', $reference, PDO::PARAM_STR);
     $sth->bindParam(':adresse', $adresse, PDO::PARAM_STR);
     $sth->bindValue(':date', strftime("%Y-%m-%d", strtotime($date)), PDO::PARAM_STR);
-    $sth->bindValue(':guarantee', strftime("%Y-%m-%d", strtotime($date)), PDO::PARAM_STR);
+    $sth->bindValue(':guarantee', strftime("%Y-%m-%d", strtotime($guarantee)), PDO::PARAM_STR);
     $sth->bindParam(':price', $price, PDO::PARAM_STR);
     $sth->bindParam(':maintenance', $maintenance, PDO::PARAM_STR);
     if ($ticket !=""){$sth->bindParam(':picture', $ticket, PDO::PARAM_STR);}
