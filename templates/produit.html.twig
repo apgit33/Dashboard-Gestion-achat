@@ -27,7 +27,7 @@
                                         <th>Catégorie</th>
                                         <th>Achat</th>
                                         <th>Garantie</th>
-                                        <th>Prix</th>
+                                        <th>Prix (€)</th>
                                         <th>Maintenance</th>
                                         <th>Ticket achat</th>
                                         <th>Manuel</th>
@@ -46,7 +46,7 @@
                                             <td class="is-vcentered"> {{ produit.guarantee|date('d-m-Y') }}</td>
                                             <td class="is-vcentered"> {{ produit.price }}</td>
                                             <td class="is-vcentered"> {{ produit.maintenance }}</td>
-                                            <td class="is-vcentered"><a href={{ "medias/ticket_achat/" ~ produit.picture }} target="_blank"><img src={{ "medias/ticket_achat/" ~ produit.picture }} alt="" width="50" height="50"></a></td>
+                                            <td class="is-vcentered"><a href={{ "medias/ticket_achat/" ~ produit.picture }} target="_blank">{{ produit.picture }}</a></td>
                                             <td class="is-vcentered"><a href={{ "medias/manual/" ~ produit.manual }}>{{ produit.manual }}</a></td>
                                             <td class="is-vcentered">
                                                 <div class="field is-grouped">

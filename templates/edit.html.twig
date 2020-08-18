@@ -147,11 +147,7 @@
                                                 </label>
                                                 <div id="manual_file" class="file has-name is-medium">
                                                     <label class="file-label">
-                                                        <input 
-                                                            {% if produit.manual == ("") %}
-                                                                required="required"
-                                                            {% endif %}
-                                                            type="file" class="file-input" name="manual_file">
+                                                        <input type="file" class="file-input" name="manual_file">
                                                         <div class="file-cta">
                                                             <div class="file-icon">
                                                                 <span class="fas fa-upload"></span>
@@ -176,8 +172,8 @@
                                             {% if produit %}
                                                 <input type ="hidden" name="edit_prod">
                                             {% endif %}
-                                                <div class="control">
-                                                    <button type ="submit" class="button is-success" name="edit">Confirm</button>
+                                                <div class="buttons is-centered">
+                                                    <button type ="submit" class="button is-success is-medium" name="edit">Confirmer</button>
                                                 </div>
                                             </div>
                                         </div>
