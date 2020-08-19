@@ -12,6 +12,9 @@
     font-weight: normal;
     font-style: normal;
 }
+$grey-lighter: hsl(0, 0%, 86%) !default;
+$table-cell-border: 1px solid $grey-lighter !default;
+$table-cell-border-width: 0 0 1px !default;
     // -----------------
     // Variables globales
     // -----------------
@@ -133,7 +136,7 @@
         background-color: $color-white;
         color: $color-primary!important;
     }
-@media screen and (max-width:1216.8896px) { 
+@media screen and (max-width:1534.8896px) { 
     .logo {display: none;}
     .navbar-burger {display: block;}
 
@@ -149,9 +152,104 @@
         top: 5%;
     }
 }
+@media screen and (max-width: 1380.98989px) {
+    .column,.colomns {
+        max-width: 100%;
+    }
+    .is-responsive {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        display: block;
+        position: relative;
+    
+        // td:empty:before {
+        //     content: '';
+        // }
+        th,td {
+            height: 42px;
+            margin: 0;
+            vertical-align: top;
+        }
+        th{
+            text-align: left
+        }
+        thead {
+            border-right: solid 2px $grey-lighter;
+            display: block;
+            float: left;
+    
+            tr{
+                display: block;
+                padding: 0 10px 0 0;
+            }
+            th::before {
+                content: "\00a0";
+            }
+            td,th
+            {border-width: 0 0 1px;}
+        }
+        tbody
+           { display: block;
+            width: auto;
+            position: relative;
+            overflow-x: auto;
+            white-space: nowrap;}
+    
+            tr
+            {display: inline-block;
+            vertical-align: top;}
+    
+        th
+            {display: block;
+            text-align: right;}
+    
+        td
+         {   display: block;
+            min-height: 1.25em;
+            text-align: left;}
+    
+        th,td{ 
+            &:last-child{
+                height: 60px;
+                border-bottom-width: 0;}
+        }
+    
+        tr{
+            &:last-child{
+                td:not(:last-child){
+                    border: $table-cell-border;
+                    border-width: $table-cell-border-width;
+                }
+            }
+        }
+    
+        &.is-bordered{
+            td,th{
+                border-width: 1px;
+            }
+            tr{
+                td,th{
+                    &:last-child{
+                        border-bottom-width: 1px;
+                    }
+                }
+            }
+            &:last-child{
+                td,th{
+                    border-width: 1px;
+                }
+            }
+        }
+    }
+}
 @media screen and (max-width:1023.98889px) {
     .menu_connection {display: block;}
 }
 @media screen and (max-width:768.98889px) {
     .pagination {width:100%;}
+
+    .c_login {
+        padding: 24px;
+    }
 }
