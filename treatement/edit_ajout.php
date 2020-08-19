@@ -31,36 +31,45 @@ Début des tests
 //nom
 if(!preg_match("/^[\p{L}-]*$/u",$name)) {
     $erreurs[]["name"] = "Nom incorrect";
+}elseif (strlen($name) < 3 || strlen($name) > 45) {
+    $erreurs[]["name"] = "Entre 3 et 45 caractères autorisé";
 }
 
 //référence
 if(!preg_match("/^[\p{L}\p{N}_.-]*$/u",$reference)) {
-    $erreurs[]["reference"] = "référence incorrect";
+    $erreurs[]["reference"] = "Référence incorrecte";
+}elseif (strlen($reference) !== 6){
+    $erreurs[]["reference"] = "Taille non autorisée (6 caractères)";
 }else{
     //teste si la référence est déjà présente dans la BDD
     $sth = $dbh->prepare("SELECT id FROM products WHERE `reference`= :ref");
     $sth->bindParam(":ref", $reference, PDO::PARAM_STR);
     $sth->execute();
     if ($sth->fetch(PDO::FETCH_ASSOC)) {
-        $erreurs[]["reference"] = "référence déjà existante";
+        $erreurs[]["reference"] = "Référence déjà existante";
     }
 }
 
 //localisation
 if($localisation == "") {
-    $erreurs[]['localisation'] = "localisation non renseignée";
+    $erreurs[]['localisation'] = "Localisation incorrecte";
+}
+
+//adresse
+if(strlen($adresse) > 45) {
+    $erreurs[]['adresse'] = "45 caractères maximum";
 }
 
 //catégorie
 if(($categorie == -1 && ( $new_categorie =="" || !preg_match("/^[\p{L}\p{N}_.-]*$/u",$new_categorie))) || ($categorie==0)){
-    $erreurs[]["categorie"] = "catégorie incorrect";
+    $erreurs[]["categorie"] = "Catégorie incorrecte";
 }else{
     //teste si la catégorie est déjà présente dans la BDD
     $sth = $dbh->prepare("SELECT id FROM categorie WHERE `nom`= :name");
     $sth->bindParam(":name", $new_categorie, PDO::PARAM_STR);
     $sth->execute();
     if ($sth->fetch(PDO::FETCH_ASSOC)) {
-        $erreurs[]["categorie"] = "catégorie déjà existante";
+        $erreurs[]["categorie"] = "Catégorie déjà existante";
     }
 }
 
@@ -82,8 +91,8 @@ if(!preg_match("/^-?(?:\d+|\d*\.\d+)$/",$price)) {
 }
 
 //maintenance
-if(strlen(trim($maintenance)) < 5 || strlen(trim($maintenance)) >= 255){ 
-    $erreurs[]['maintenance'] = "Entre 5 et 255 caractères seulement : ".strlen(trim($maintenance))." actuellement";
+if(strlen($maintenance) < 5 || strlen($maintenance) >= 255){ 
+    $erreurs[]['maintenance'] = "Entre 5 et 255 caractères seulement : ".strlen($maintenance)." actuel";
 }
 
 //ticket d'achat
@@ -177,7 +186,7 @@ if (!isset($erreurs[1])) {
     $sth->bindParam(':price', $price, PDO::PARAM_STR);
     $sth->bindParam(':maintenance', $maintenance, PDO::PARAM_STR);
     if ($ticket !=""){$sth->bindParam(':picture', $ticket, PDO::PARAM_STR);}
-    if ($manual !=""){$sth->bindParam(':manual', $manual, PDO::PARAM_STR);}
+   $sth->bindParam(':manual', $manual, PDO::PARAM_STR);
     if(isset($_POST['id']) && $_POST['id'] !== "") {
         $sth->bindParam('id', $id, PDO::PARAM_INT);
     }
