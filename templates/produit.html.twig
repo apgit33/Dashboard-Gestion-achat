@@ -45,8 +45,8 @@
                                             <td class="is-vcentered"> {{ produit.date|date('d-m-Y') }}</td>
                                             <td class="is-vcentered"> {{ produit.guarantee|date('d-m-Y') }}</td>
                                             <td class="is-vcentered"> {{ produit.price }}</td>
-                                            <td class="is-vcentered"> {{ produit.maintenance }}</td>
-                                            <td class="is-vcentered"><a href={{ "medias/ticket_achat/" ~ produit.picture }} target="_blank">{{ produit.picture }}</a></td>
+                                            <td class="is-vcentered long">{{ produit.maintenance }}</td>
+                                            <td class="is-vcentered"><a href={{ "medias/ticket_achat/" ~ produit.ticket }} target="_blank">{{ produit.ticket }}</a></td>
                                             <td class="is-vcentered"><a href={{ "medias/manual/" ~ produit.manual }}>{{ produit.manual }}</a></td>
                                             <td class="is-vcentered">
                                                 <div class="field is-grouped">
@@ -59,7 +59,7 @@
                                                     
                                                     <div class="control">
                                                         <button class="button btn_delete is-danger far fa-trash-alt" name="delete"></button>
-                                                        {# Création de la modal de suppression #}
+                                                        <!-- Création de la modal de suppression -->
                                                         <div class="modal">
                                                             <form class="modal-content" action="" method="post">
                                                                 <div class="container-modal">
@@ -110,7 +110,8 @@
             </div>
         </div>
         {% include "footer.html" %}
-
+        <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js?ver=1.3.2'></script>
+        <script type='text/javascript' src='js/jquery.mousewheel.min.js'></script>
         <script src="https://kit.fontawesome.com/6c7241f45d.js" crossorigin="anonymous"></script>
         <script src="js/delete.js"></script>
         <script src="js/main.js"></script>

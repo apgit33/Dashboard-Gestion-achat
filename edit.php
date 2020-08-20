@@ -24,7 +24,7 @@ $user = (isset($_SESSION['user']))? $_SESSION['user'] : "";
 
 // Requête sql pour éxtraire les valeurs du tableau si on est en état d'édition
 if(isset($_GET['id']) && isset($_GET['edit'])){
-    $sql = 'SELECT id, localisation, name, reference, categorie, date, guarantee, price, maintenance, picture, manual FROM products WHERE id=:id';
+    $sql = 'SELECT id, localisation, name, reference, categorie, adresse, date, guarantee, price, maintenance, ticket, manual FROM products WHERE id=:id';
     $sth = $dbh->prepare($sql);
     $sth->bindParam(':id', $_GET['id'], PDO::PARAM_INT);
     $sth->execute();

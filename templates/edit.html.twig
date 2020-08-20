@@ -114,17 +114,17 @@
                                             <div id="check_maintenance" class="verif"></div>
                                         </div>
                                         <div class="field">
-                                            <label for="ticket_file" class="label">Ticket d'achat :
-                                                {% if produit.picture %}
-                                                    <a href={{ "medias/ticket_achat/" ~ produit.picture }} target="_blank"><img src={{ "medias/ticket_achat/" ~ produit.picture }} alt="" width="50" height="50"></a>
+                                            <label for="ticket" class="label">Ticket d'achat :
+                                                {% if produit.ticket %}
+                                                    <a href={{ "medias/ticket_achat/" ~ produit.ticket }} target="_blank">{{ produit.ticket }}</a>
                                                 {% endif %}
                                             </label>
-                                            <div id="ticket_file" class="file has-name is-medium">
+                                            <div id="ticket" class="file has-name is-medium">
                                                 <label class="file-label">
                                                     <input 
-                                                    {% if produit.picture == "" %}
+                                                    {% if produit.ticket == "" %}
                                                         required="required"
-                                                    {% endif %} type="file" class="file-input" name="ticket_file">
+                                                    {% endif %} type="file" class="file-input" name="ticket">
                                                     <div class="file-cta">
                                                         <div class="file-icon">
                                                             <span class="fas fa-upload"></span>
@@ -141,14 +141,14 @@
                                             <div id="check_ticket" class="verif"></div>
                                         </div>
                                         <div class="field">
-                                            <label for="manual_file" class="label">Manuel :  
+                                            <label for="manual" class="label">Manuel :  
                                                 {% if produit.manual %}
                                                     <a href={{ "medias/manual/" ~ produit.manual }}>{{ produit.manual }}</a>
                                                 {% endif %}
                                             </label>
-                                            <div id="manual_file" class="file has-name is-medium">
+                                            <div id="manual" class="file has-name is-medium">
                                                 <label class="file-label">
-                                                    <input type="file" class="file-input" name="manual_file">
+                                                    <input type="file" class="file-input" name="manual">
                                                     <div class="file-cta">
                                                         <div class="file-icon">
                                                             <span class="fas fa-upload"></span>

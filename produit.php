@@ -13,11 +13,11 @@ $user = (isset($_SESSION['user']))? $_SESSION['user'] : "";
 if (isset( $_POST['modal_delete'])){
     $id = $_POST['modal_delete'];
     //Récupère le nom du ticket du manuel pour supprimer les fichiers correspondant
-    $sth = $dbh->prepare("SELECT picture, manual FROM products WHERE id=:id");
+    $sth = $dbh->prepare("SELECT ticket, manual FROM products WHERE id=:id");
     $sth->bindParam(':id', $id, PDO::PARAM_INT);
     $sth->execute();
     $datas = $sth->fetch(PDO::FETCH_ASSOC);
-    $tmp_ticket = $datas['picture'];
+    $tmp_ticket = $datas['ticket'];
     $tmp_manual = $datas['manual'];
     unlink("./medias/ticket_achat/$tmp_ticket");
     if($tmp_manual !== "") {unlink("./medias/manual/$tmp_manual");}
@@ -46,7 +46,7 @@ $first_article_page = $limit + 1;
 $last_article_page = $limit + $nombre;
 
 //  Requête sql d'éxtracton d'informations de la base de donnée
-$sql = "SELECT products.id, localisation, name, reference,  categorie.nom as categorie, date, guarantee, price, maintenance, picture, manual,adresse FROM products INNER JOIN categorie ON categorie.id = products.categorie ORDER BY `products`.`id` DESC LIMIT $limit,$nombre";
+$sql = "SELECT products.id, localisation, name, reference,  categorie.nom as categorie, date, guarantee, price, maintenance, ticket, manual,adresse FROM products INNER JOIN categorie ON categorie.id = products.categorie ORDER BY `products`.`id` DESC LIMIT $limit,$nombre";
 $sth = $dbh->prepare($sql);
 $sth->execute();
 
