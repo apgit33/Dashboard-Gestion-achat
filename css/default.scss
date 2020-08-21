@@ -190,9 +190,12 @@ td.long {
         th,td{
             height: 42px;
             display: block;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
             &:last-child{
                 height: 60px;
-                border-bottom-width: 0;
+                border-bottom-width: 2 solid black ;
             }
         }
     }
