@@ -9,7 +9,8 @@ $erreurs[]= "";
 $path_ticket = "";
 $extensionUpload_ticket = "";
 $extensionUpload_manual = "";
-
+$upload_ticket = false;
+$upload_manual = false;
 
 $name = (isset($_POST['name']) ? trim($_POST['name']):"");
 $reference = (isset($_POST['reference']) ? trim($_POST['reference']):"");
@@ -148,9 +149,11 @@ if (!isset($erreurs[1])) {
     //on crée les fichiers ici pour éviter d'en créer un à chaque erreur
     if(move_uploaded_file($_FILES['ticket']['tmp_name'], "../medias/ticket_achat/$reference.$extensionUpload_ticket")){
         $ticket = "$reference.$extensionUpload_ticket";
+        $upload_ticket = true;
     }
     if(move_uploaded_file($_FILES['manual']['tmp_name'], "../medias/manual/$reference.$extensionUpload_manual")){
         $manual = "$reference.$extensionUpload_manual";
+        $upload_manual = true;
     }
 
     //si on a changé la ref du produit on rename les médias
@@ -159,15 +162,24 @@ if (!isset($erreurs[1])) {
         $sth->bindParam(':id', $_POST['id'], PDO::PARAM_STR);
         $sth->execute();
         $data = $sth->fetch(PDO::FETCH_ASSOC);
-        $ticket = $data['ticket'];
-        $manual = $data['manual'];
-        if ($ticket!="") {
-            rename("../medias/ticket_achat/$ticket","../medias/ticket_achat/$reference.".explode(".",$ticket)[1]);
-            $ticket = "$reference.".explode(".",$ticket)[1];
+        $ticket_old = $data['ticket'];
+        $manual_old = $data['manual'];
+        //Si un média est déjà présent dans la base on le rename ou si l'extension est différente on le delete
+        if ($ticket_old!="") {
+            if($upload_ticket == true && $extensionUpload_ticket != explode(".",$ticket_old)[1]) {
+                unlink("../medias/ticket_achat/$ticket_old");
+            }else{
+                rename("../medias/ticket_achat/$ticket_old","../medias/ticket_achat/$reference.".explode(".",$ticket_old)[1]);
+                $ticket = "$reference.".explode(".",$ticket_old)[1];
+            }
         }
-        if ($manual!="") {
-            rename("../medias/manual/$manual","../medias/manual/$reference.".explode(".",$manual)[1]);
-            $manual = "$reference.".explode(".",$manual)[1];
+        if ($manual_old!="") {
+            if($upload_manual == true && $extensionUpload_manual != explode(".",$manual_old)[1]) {
+                unlink("../medias/manual/$manual_old");
+            }else{
+                rename("../medias/manual/$manual_old","../medias/manual/$reference.".explode(".",$manual_old)[1]);
+                $manual = "$reference.".explode(".",$manual_old)[1];
+            }
         }
     }
     //si une nouvelle catégorie est crée, on l'insere dans la BDD
