@@ -6,7 +6,7 @@ Ce dashboard devra être **sécurisé par un système de login**.
 
 ## Équipe
 + Front : [Adrien Paturot](https://github.com/apgit33)
-+ Back  : [Arnaud](https://github.com/Arnaud1709) et [Jessica](https://github.com/JessicaDaSilvaC)
++ Back  : [Arnaud](https://github.com/Arnaud1709)
 
 
 ## Fonctionnalités
