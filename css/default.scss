@@ -100,20 +100,20 @@ textarea {
 
 // Modal suppression
     .modal {
-        position: fixed; /* Stay in place */
-        z-index: 99; /* Sit on top */
+        position: fixed; 
+        z-index: 99;
         left: 0;
         top: 0;
-        width: 100%; /* Full width */
-        overflow: hidden; /* Enable scroll if needed */
+        width: 100%; 
+        overflow: hidden;
         background-color: $color-primary;
         padding-top: 50px;
         opacity: 97%;  
         .modal-content {
             background-color: $color-secondary;
-            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+            margin: 5% auto 15% auto; 
             border: 1px solid #888;
-            width: 25%; /* Could be more or less, depending on screen size */
+            width: 25%; 
              .container-modal {
                 padding: 16px;
                 text-align: center;
